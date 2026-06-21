@@ -14,7 +14,7 @@ Current design spec:
 docs/superpowers/specs/2026-06-21-distribution-aligned-denoising-targets-design.md
 ```
 
-Immediate next step: read the added nearest-neighbor papers, then create an implementation plan for the Stage 1 off-priorness measurement experiment with base-error-floor and conditioning controls.
+Immediate next step: create an implementation plan for the Stage 1 off-priorness measurement experiment with base-error-floor and conditioning controls.
 
 ## Current Research Question
 
@@ -57,7 +57,7 @@ Claude or another external model may be consulted as a research assistant for im
 
 - `docs/superpowers/specs/`: current design specs and research plans, with status marked inside each file.
 - `docs/superpowers/plans/`: implementation or experiment execution plans.
-- `notes/`: concise working notes, paper notes, and writing notes that do not yet belong in a spec.
+- `notes/`: concise working notes, paper notes, external-review notes, and writing notes that do not yet belong in a spec.
 - `experiments/`: experiment configs, logs, summaries, and analysis outputs.
 - `scripts/`: runnable code and utilities.
 - `data/`: small metadata files or dataset manifests. Large datasets should be documented here but not copied blindly.

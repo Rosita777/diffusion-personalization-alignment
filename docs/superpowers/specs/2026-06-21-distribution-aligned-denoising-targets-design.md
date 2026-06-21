@@ -655,7 +655,7 @@ Out of scope for v0:
 
 ## Immediate Next Steps
 
-1. Finish reading the nearest-neighbor papers added during review: DCO, SDS/VSD, Min-SNR, and P2 weighting.
+1. Use the near-neighbor reading note at `notes/2026-06-21-near-neighbor-reading.md` as the current related-work baseline.
 2. Create an implementation plan for Stage 1 measurement only, scoped to:
    - raw reference-image off-priorness;
    - base-generated error floor;
