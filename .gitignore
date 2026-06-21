@@ -1,0 +1,31 @@
+# Local secrets. Never commit these, especially because the GitHub repo is public.
+token.txt
+.env
+.env.*
+*.key
+*.pem
+
+# Python and notebook cache.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Editor and OS noise.
+.DS_Store
+.vscode/
+.idea/
+
+# Large or generated artifacts. Track curated summaries, manifests, and notes instead.
+outputs/
+experiments/**/checkpoints/
+experiments/**/wandb/
+experiments/**/tensorboard/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+
+# Dataset caches should be documented with manifests rather than blindly committed.
+data/cache/
+data/raw/
