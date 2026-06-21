@@ -28,7 +28,7 @@ Personalization Forgetting Starts Before Fine-Tuning.
 
 ### MixSD
 
-MixSD is the main conceptual inspiration. It argues that supervised fine-tuning can forget because expert targets diverge from the base language model's native autoregressive distribution. Its method constructs distribution-aligned targets by mixing an expert conditional and a naive/self conditional from the base model, rather than training on fixed expert targets.
+MixSD is the main conceptual inspiration. It argues that supervised fine-tuning can forget because expert targets diverge from the base language model's native autoregressive distribution. Its method constructs distribution-aligned targets by mixing an expert conditional and a naive/self conditional from the base model, rather than training on fixed expert targets. Its evidence includes lower-NLL supervision under the base model and reduced movement along Fisher-sensitive directions.
 
 Our migration:
 
@@ -42,7 +42,7 @@ Our migration:
 
 Important distinction: MixSD motivates the logic, but a direct diffusion copy would be weak. The diffusion-native contribution should use timestep, trajectory, frequency, and optionally region structure.
 
-Source: https://arxiv.org/abs/2605.16865
+Source: https://arxiv.org/abs/2605.16865, verified on 2026-06-21.
 
 ### DreamBooth
 
@@ -79,6 +79,51 @@ This means P&P is reactive or constraint-level preservation, while this project 
 
 Sources: https://arxiv.org/abs/2505.19519 and https://openreview.net/forum?id=p4oYf6IbG5
 
+### Direct Consistency Optimization
+
+Direct Consistency Optimization (DCO) is a very close personalization baseline. It improves robust customization by controlling deviation between a fine-tuned model and the pretrained model, with a Pareto framing over subject/style consistency and prompt fidelity.
+
+This is closer than ordinary prior preservation because it explicitly anchors fine-tuning to pretrained behavior. The key distinction must be:
+
+```text
+DCO: modify the fine-tuning objective so the personalized model stays close to the pretrained model.
+Ours: measure and edit the reference denoising target before the personalized model learns it.
+```
+
+This distinction is not enough by wording alone. DCO must be treated as a priority baseline or, if reproduction is not immediately feasible, as a documented nearest neighbor with a faithful surrogate comparison.
+
+Sources: https://arxiv.org/abs/2402.12004 and https://openreview.net/forum?id=VazkRbCGxt
+
+### Score Distillation Methods
+
+SDS and VSD use pretrained diffusion scores as guidance or distillation signals, especially in text-to-3D optimization. They are not personalization methods in the same setting, but reviewers may connect them to any method that compares a target direction with a pretrained model score.
+
+The distinction should be:
+
+```text
+SDS / VSD: use pretrained diffusion scores to guide optimization of another representation or generator.
+Ours: modifies training-time personalization supervision on reference-image denoising targets.
+```
+
+This project should not claim that using a pretrained score as a reference is new. The novelty must be the diagnosis of reference-target off-priorness in personalization and the selective correction of prior-harmful target components.
+
+Sources: https://arxiv.org/abs/2209.14988 and https://arxiv.org/abs/2305.16213
+
+### Timestep Loss Weighting
+
+Min-SNR and P2 weighting show that diffusion timesteps should not always be treated uniformly during training. This creates a near-neighbor risk for any timestep-aware schedule.
+
+The distinction should be:
+
+```text
+Min-SNR / P2: reweight losses across timesteps.
+Ours: changes the denoising target components using measured off-priorness.
+```
+
+Experiments must separate target correction from simple timestep reweighting. A Min-SNR or P2-style baseline is therefore useful once DADT training begins.
+
+Sources: https://arxiv.org/abs/2303.09556 and https://arxiv.org/abs/2204.00227
+
 ### Spectral Progressive Diffusion
 
 Spectral Progressive Diffusion shows that visual content emerges progressively in frequency space: low-frequency components appear earlier in denoising, while high-frequency details emerge later.
@@ -92,7 +137,7 @@ high-frequency / low-noise components -> allow subject-specific identity details
 
 The method should therefore avoid one global mixing coefficient. A frequency-aware and timestep-aware correction is much more defensible than uniform velocity averaging.
 
-Source: https://arxiv.org/abs/2605.18736
+Source: https://arxiv.org/abs/2605.18736, verified on 2026-06-21.
 
 ## Problem Definition
 
@@ -112,12 +157,14 @@ The pretrained model can also predict a base denoising direction at the same noi
 v_base = M_0(z_t, t, c_base)
 ```
 
-The conditioning `c_base` is not fixed yet. Candidate choices:
+The conditioning `c_base` is a core measurement axis, not a minor implementation detail. Stage 1 should report off-priorness under at least three choices:
 
 - class prompt, such as `a photo of a dog`;
-- reference prompt with the rare token before personalization, such as `a photo of [V] dog`;
 - unconditional or empty prompt;
+- class-plus-context prompt, such as the class and scene without the rare token;
 - a pair of conditional and unconditional predictions used to separate text-conditioned and prior components.
+
+The default v0 report should use the class prompt, while the other variants test whether the conclusion is robust to conditioning.
 
 The first research question is:
 
@@ -133,7 +180,7 @@ Can we correct only the prior-harmful components of v_ref while preserving subje
 
 ## Core Claims To Validate
 
-### Claim 1: Target Off-Priorness Is Measurable
+### Claim 1: Target Off-Priorness Is Measurable Above The Base Error Floor
 
 Define an off-priorness score over timestep, frequency band, and optionally spatial region:
 
@@ -148,13 +195,21 @@ where:
 
 - `b` is a frequency band, such as low / mid / high DCT or wavelet components;
 - `r` is optional spatial region, such as subject mask or background;
-- `normalized_distance` can start as cosine distance plus normalized L2 residual.
+- `normalized_distance` can start as cosine distance plus normalized L2 residual after per-timestep scale normalization.
 
 This score is diagnostic first. The method should not depend on a hand-wavy claim that the target is "bad"; it should show where the target departs from the pretrained field.
 
-### Claim 2: Off-Priorness Is Non-Uniform
+Important caveat:
 
-The most important figure should show that target off-priorness is structured, not uniform:
+```text
+v_ref - v_base includes both target off-priorness and ordinary pretrained-model prediction error.
+```
+
+Therefore Stage 1 must estimate a base error floor by running the same measurement on images generated by the pretrained model under class prompts. A reference target should be called off-prior only when its residual is meaningfully above this base-generated floor.
+
+### Claim 2: Off-Priorness Has Semantically Structured Non-Uniformity
+
+The most important figure should show that target off-priorness is not merely non-uniform, but structured in a way that matches diffusion semantics:
 
 ```text
 timestep x frequency x region -> off-priorness heatmap
@@ -166,11 +221,11 @@ Expected pattern:
 - low-noise / high-frequency deviations are more likely to carry subject texture and identity;
 - background deviations should often be more prior-harmful than subject-region deviations.
 
-This claim motivates selective correction. If off-priorness is flat everywhere, the method collapses into ordinary distillation or regularization.
+This claim motivates selective correction. If off-priorness is flat everywhere, or if the structure does not align with timestep/frequency roles, the method collapses into ordinary distillation or regularization.
 
 ### Claim 3: Off-Priorness Predicts Forgetting
 
-The diagnostic must correlate with later behavior:
+The diagnostic must correlate with later behavior at the subject level:
 
 ```text
 higher off-priorness before fine-tuning -> more prior drift after fine-tuning
@@ -184,9 +239,15 @@ Potential dependent variables:
 - class prior FID/KID against base-model generated class samples;
 - subject prompt overfitting under long fine-tuning.
 
-This is the claim that can make the paper feel new.
+This is the claim that can make the paper feel new. The first planned threshold should be modest but predeclared:
 
-### Claim 4: Selective Target Correction Beats Uniform Mixing
+```text
+Spearman correlation rho >= 0.5 across at least 20 subjects
+```
+
+for at least one prior-drift metric after controlling for subject fidelity. The exact threshold can be revised before experiments start, but the analysis must not be chosen after looking at the result.
+
+### Claim 4: Selective Target Correction Improves The Pareto Frontier
 
 The method should outperform:
 
@@ -194,7 +255,15 @@ The method should outperform:
 v_mixed = alpha * v_ref + (1 - alpha) * v_base
 ```
 
-at matched subject fidelity. The comparison must be explicit. Otherwise reviewers will see the method as simple diffusion distillation.
+on the subject-fidelity / prior-preservation Pareto frontier, not just at a single chosen hyperparameter. The comparison must be explicit. Otherwise reviewers will see the method as simple diffusion distillation.
+
+### Claim 5: Target Correction Preserves Subject Fidelity
+
+The method must not only improve prior preservation. It must also show that target correction does not erase the personalized subject. Report:
+
+- prior preservation at matched subject fidelity;
+- subject fidelity at matched prior preservation;
+- failure cases where target correction over-preserves the base model and underfits the subject.
 
 ## Proposed Method: DADT
 
@@ -222,19 +291,21 @@ For v0 experiments, `P_prior_harmful` can be simple:
 P_prior_harmful(delta_v) = component(delta_v, selected frequency band and region)
 ```
 
+This is an inductive bias, not a solved detector of prior harm. The spec should not pretend that low-frequency or background residuals are automatically harmful. Stage 1 and Stage 2 should test whether those components actually correlate with forgetting.
+
 The longer-term version can use a more theory-flavored projection, such as Fisher-sensitive directions, local score-field curvature, or one-step denoise reconstruction residual.
 
 ### Gate Design
 
-Avoid a manually chosen global alpha. Use a gate driven by off-priorness:
+Avoid a manually chosen global alpha. Use a gate driven by off-priorness, while keeping the first version simple enough to audit:
 
 ```text
-G(t, b, r) = clip(sigmoid((O(t, b, r) - tau_b) / temp) * S(t, b, r), 0, 1)
+G(t, b, r) = sigmoid((O_norm(t, b, r) - tau_b) / temp) * S(t, b, r)
 ```
 
 where:
 
-- `O(t, b, r)` is measured off-priorness;
+- `O_norm(t, b, r)` is measured off-priorness after subtracting or normalizing by the base error floor;
 - `tau_b` is a band-specific threshold;
 - `S(t, b, r)` encodes a conservative schedule, such as stronger low-frequency correction at high-noise timesteps.
 
@@ -244,6 +315,8 @@ The gate should be interpreted as:
 high gate -> move target toward base field
 low gate -> keep reference target
 ```
+
+The v0 implementation should sweep only a small number of gate strengths. If performance depends on fragile hyperparameters, the method will look like another regularization knob.
 
 ### Timestep Design
 
@@ -263,6 +336,14 @@ Initial decomposition:
 - high-frequency band: weakest alignment unless off-priorness is extreme or appears in background.
 
 DCT is a simple first choice. Wavelet decomposition is a possible later improvement because it keeps more spatial localization.
+
+Important sanity check:
+
+```text
+latent-space frequency is not automatically image-space frequency.
+```
+
+The first measurement experiment should compare latent-space DCT statistics with decoded image-space frequency statistics on a small subset before making strong claims about low-frequency and high-frequency semantics.
 
 ### Region Design
 
@@ -332,7 +413,7 @@ Chosen v0 direction: Option C, with Option A as the first experiment and Option 
 
 ### Stage 1: Measurement Before Training
 
-Goal: show that reference targets are off-prior in a structured way.
+Goal: show that reference targets are off-prior in a structured way, above the pretrained model's ordinary prediction-error floor.
 
 Inputs:
 
@@ -346,8 +427,22 @@ Procedure:
 2. Sample timesteps and noise.
 3. Compute raw target `v_ref`.
 4. Run pretrained model `M_0` at the same `(z_t, t, c_base)` to obtain `v_base`.
-5. Decompose `v_ref - v_base` by timestep and frequency.
-6. Produce heatmaps and summary statistics.
+5. Normalize residuals by timestep scale or SNR so the heatmap does not simply reproduce the scheduler scale.
+6. Estimate the base error floor by repeating the measurement on images generated by `M_0` from class prompts.
+7. Repeat measurement for `c_base` variants: null prompt, class prompt, and class-plus-context prompt.
+8. Compare with an in-distribution control image set, such as base-generated class images or a small LAION-like class sample if available.
+9. Run a VAE roundtrip control to detect residuals caused by encode/decode artifacts.
+10. Decompose residuals by timestep and frequency, first in latent space and then on a decoded-image sanity subset.
+11. Produce heatmaps and summary statistics.
+
+Controls required before interpreting the score as off-priorness:
+
+- **Base-model error floor:** compare reference-image residuals to base-generated image residuals.
+- **Conditioning robustness:** check whether the conclusion holds under null, class, and class-plus-context prompts.
+- **Timestep scale:** normalize by timestep variance or SNR.
+- **Dataset shift:** compare subject reference images with in-distribution class images.
+- **VAE artifact:** compare raw reference latents with VAE-roundtripped references.
+- **Frequency semantics:** check whether latent-space frequency findings agree with decoded-image sanity checks.
 
 Expected artifact:
 
@@ -385,9 +480,12 @@ Baselines:
 - DreamBooth with class-specific prior preservation;
 - LoRA personalization;
 - Custom Diffusion if feasible;
+- Direct Consistency Optimization or a faithful DCO-style surrogate if the official setup is not feasible;
 - uniform target fusion;
 - timestep-only target fusion;
 - timestep-weighted prior preservation loss;
+- Min-SNR or P2-style timestep loss weighting;
+- VSD/SDS-style target guidance surrogate if a fair training-time adaptation is possible;
 - P&P-style regularization if implementation is available or faithfully reproduced.
 
 Metrics:
@@ -414,6 +512,8 @@ Required ablations:
 - frequency gate only;
 - timestep + frequency gate;
 - random gate with same average strength;
+- gate-strength sweep to verify robustness to `tau_b`, `temp`, and schedule strength;
+- `c_base` choice: null, class prompt, class-plus-context prompt;
 - background/foreground region gate if region-aware alignment is included.
 
 The ablation should answer whether DADT is more than a regularization-strength knob.
@@ -443,21 +543,60 @@ Mitigation:
 - present DADT as target-level preservation;
 - compare target correction vs. equivalent loss penalty when feasible.
 
-### Risk 4: "The off-priorness metric is heuristic."
+### Risk 4: "DCO already anchors personalization to the pretrained model."
+
+Mitigation:
+
+- add DCO as a priority near-neighbor and baseline;
+- emphasize that DCO controls model updates while DADT changes the supervision target;
+- compare against DCO or a faithful surrogate on the same subject-fidelity / prior-preservation frontier.
+
+### Risk 5: "SDS/VSD already use pretrained scores."
+
+Mitigation:
+
+- avoid claiming that pretrained-score references are new;
+- position DADT as a training-time personalization target correction method, not a sample or representation optimization method;
+- include a VSD/SDS-style surrogate if a fair baseline can be defined.
+
+### Risk 6: "The method is only timestep loss weighting."
+
+Mitigation:
+
+- include Min-SNR or P2-style loss weighting baselines;
+- separate loss reweighting from target modification in the ablation.
+
+### Risk 7: "The off-priorness metric is heuristic."
 
 Mitigation:
 
 - start with simple metrics for v0, but connect them to lower-NLL / Fisher-sensitive directions inspired by MixSD;
 - later add a theory-flavored metric such as local Jacobian norm, Fisher-weighted residual, or one-step denoise residual.
 
-### Risk 5: "Target correction weakens personalization."
+### Risk 8: "The residual is just base-model prediction error."
+
+Mitigation:
+
+- measure and subtract or normalize by the base-generated image residual floor;
+- report results under multiple `c_base` choices;
+- avoid interpreting raw `v_ref - v_base` as off-priorness before controls pass.
+
+### Risk 9: "Latent-space frequency has unclear semantics."
+
+Mitigation:
+
+- present latent DCT as a practical measurement, not as guaranteed image-frequency semantics;
+- run decoded-image frequency sanity checks on a small subset;
+- consider wavelet or decoded-image analysis if latent results are hard to interpret.
+
+### Risk 10: "Target correction weakens personalization."
 
 Mitigation:
 
 - always report subject fidelity at matched prior preservation and prior preservation at matched subject fidelity;
 - show high-frequency and subject-region components are preserved more than low-frequency/background components.
 
-### Risk 6: "The effect only appears on easy subjects."
+### Risk 11: "The effect only appears on easy subjects."
 
 Mitigation:
 
@@ -516,8 +655,13 @@ Out of scope for v0:
 
 ## Immediate Next Steps
 
-1. Review this spec for conceptual correctness and missing near-neighbor papers.
-2. Ask Claude or another external model for reviewer-style critique of the spec.
-3. Create an implementation plan for Stage 1 measurement only.
-4. Set up environment and choose the first backbone, likely SD 1.5.
-5. Run a small measurement smoke test on 3 to 5 subjects before scaling.
+1. Finish reading the nearest-neighbor papers added during review: DCO, SDS/VSD, Min-SNR, and P2 weighting.
+2. Create an implementation plan for Stage 1 measurement only, scoped to:
+   - raw reference-image off-priorness;
+   - base-generated error floor;
+   - `c_base` ablation;
+   - timestep/SNR normalization;
+   - a small latent-vs-image frequency sanity check.
+3. Set up environment and choose the first backbone, likely SD 1.5.
+4. Run a small measurement smoke test on 3 to 5 subjects before scaling.
+5. Use the smoke test as a go/no-go check: if reference residuals are not above the base-generated floor, the off-prior framing must be revised before method work.

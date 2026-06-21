@@ -6,7 +6,7 @@ Core idea: prevent personalization forgetting by constructing denoising targets 
 
 ## Current Status
 
-Current stage: research design v0. No experiment code or training pipeline has been implemented yet.
+Current stage: research design v0 after one external reviewer-style critique pass. No experiment code or training pipeline has been implemented yet.
 
 Current design spec:
 
@@ -14,7 +14,7 @@ Current design spec:
 docs/superpowers/specs/2026-06-21-distribution-aligned-denoising-targets-design.md
 ```
 
-Immediate next step: review the spec, then create an implementation plan for the Stage 1 off-priorness measurement experiment.
+Immediate next step: read the added nearest-neighbor papers, then create an implementation plan for the Stage 1 off-priorness measurement experiment with base-error-floor and conditioning controls.
 
 ## Current Research Question
 
