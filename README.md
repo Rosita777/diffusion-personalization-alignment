@@ -4,6 +4,18 @@ Working directory for the Distribution-Aligned Denoising Targets for Diffusion P
 
 Core idea: prevent personalization forgetting by constructing denoising targets that are more compatible with the pretrained score / velocity field, rather than only constraining parameter updates.
 
+## Current Status
+
+Current stage: research design v0. No experiment code or training pipeline has been implemented yet.
+
+Current design spec:
+
+```text
+docs/superpowers/specs/2026-06-21-distribution-aligned-denoising-targets-design.md
+```
+
+Immediate next step: review the spec, then create an implementation plan for the Stage 1 off-priorness measurement experiment.
+
 ## Current Research Question
 
 Diffusion personalization methods can forget or distort the pretrained class prior after fine-tuning on a few reference images. Existing anti-forgetting strategies often add prior samples, replay, regularization, or parameter constraints.
@@ -43,7 +55,7 @@ Claude or another external model may be consulted as a research assistant for im
 
 ## Directory Layout
 
-- `docs/superpowers/specs/`: design specs and research plans after they are approved.
+- `docs/superpowers/specs/`: current design specs and research plans, with status marked inside each file.
 - `docs/superpowers/plans/`: implementation or experiment execution plans.
 - `notes/`: concise working notes, paper notes, and writing notes that do not yet belong in a spec.
 - `experiments/`: experiment configs, logs, summaries, and analysis outputs.

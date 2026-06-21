@@ -20,6 +20,7 @@ Remote commits created during setup:
 
 - `f45a9a941e60465b1517ded5da757f323712d6ff`: initialize `README.md`.
 - `c2197f90b5e36969d50f6dbc3fcaa8c02ebd31df`: add project structure and hygiene rules.
+- `4e23a4d45b7cd02938852ca15362c80a16a88471`: record this GitHub backup setup note.
 
 Important caution:
 
