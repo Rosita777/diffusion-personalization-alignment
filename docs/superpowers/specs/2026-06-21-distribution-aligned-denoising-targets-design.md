@@ -2,7 +2,7 @@
 
 Date: 2026-06-21
 
-Status: v0 research design for review. No implementation has started.
+Status: v0 research design plus Stage 1 measurement code. The real SD 1.5/DreamBooth smoke test has not been run yet.
 
 ## Purpose
 
@@ -686,6 +686,6 @@ Out of scope for v0:
 1. Use the near-neighbor reading note at `notes/2026-06-21-near-neighbor-reading.md` as the current related-work baseline.
 2. Use the dataset survey at `notes/2026-06-22-dataset-survey.md` as the current benchmark-selection baseline.
 3. Use the Stage 1 implementation plan at `docs/superpowers/plans/2026-06-22-stage-1-off-priorness-measurement.md` as the current execution plan.
-4. Implement Task 1 of that plan: create the Python package skeleton, dependency file, and import smoke test.
-5. Run the DreamBooth 5-subject measurement smoke test before scaling to all 30 DreamBooth subjects.
+4. Use the implemented code under `scripts/off_prior_measurement/` to run the DreamBooth 5-subject smoke test on a PyTorch/diffusers environment.
+5. Generate and inspect `experiments/off_prior_measurement_v0/smoke_test/conclusion.md`.
 6. Use the smoke test as a go/no-go check: if reference residuals are not above the base-generated floor, the off-prior framing must be revised before method work.

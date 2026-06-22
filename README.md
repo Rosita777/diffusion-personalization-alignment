@@ -6,7 +6,7 @@ Core idea: prevent personalization forgetting by constructing denoising targets 
 
 ## Current Status
 
-Current stage: research design v0 plus a concrete Stage 1 measurement implementation plan. No experiment code or training pipeline has been implemented yet.
+Current stage: Stage 1 off-priorness measurement pipeline implemented for a DreamBooth smoke test. Lightweight unit tests pass. The full SD 1.5/DreamBooth GPU run has not been executed yet.
 
 Current design inputs:
 
@@ -16,7 +16,7 @@ docs/superpowers/plans/2026-06-22-stage-1-off-priorness-measurement.md
 notes/2026-06-22-dataset-survey.md
 ```
 
-Immediate next step: implement Task 1 of the Stage 1 off-priorness measurement plan, starting with the Python measurement package skeleton and environment file.
+Immediate next step: set up a Python environment with PyTorch, diffusers, transformers, and Hugging Face access, then run the smoke-test commands in `experiments/off_prior_measurement_v0/smoke_test/README.md`.
 
 ## Current Research Question
 

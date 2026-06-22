@@ -19,6 +19,7 @@ __pycache__/
 # Large or generated artifacts. Track curated summaries, manifests, and notes instead.
 outputs/
 experiments/**/checkpoints/
+experiments/**/debug_tensors/
 experiments/**/wandb/
 experiments/**/tensorboard/
 *.ckpt

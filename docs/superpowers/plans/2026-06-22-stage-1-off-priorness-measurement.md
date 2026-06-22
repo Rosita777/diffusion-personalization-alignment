@@ -6,7 +6,9 @@
 
 **Architecture:** Implement a small Python measurement package under `scripts/off_prior_measurement/`. The pipeline is config-driven: prepare DreamBooth subject metadata, generate base-model control images, compute `v_ref` and `v_base` at matched noisy latents, summarize residuals against a base-generated error floor, and create figures plus a short conclusion note.
 
-**Tech Stack:** Python 3.10+, PyTorch, diffusers, transformers, accelerate, Hugging Face Hub, Pillow, NumPy, pandas, SciPy, PyYAML, matplotlib, seaborn, pytest.
+**Tech Stack:** Python 3.10+, PyTorch, diffusers, transformers, accelerate, Hugging Face Hub, Pillow, NumPy, pandas, SciPy, PyYAML, matplotlib, pytest.
+
+**Implementation Status (2026-06-22):** Tasks 1-10 and the reusable parts of Tasks 11-12 are implemented and lightweight unit-tested. The real SD 1.5/DreamBooth GPU run, curated result files, and smoke-test `conclusion.md` are still pending.
 
 ---
 
@@ -66,6 +68,7 @@ tests/off_prior_measurement/test_metrics.py
 tests/off_prior_measurement/test_measure_cli.py
 tests/off_prior_measurement/test_summarize.py
 tests/off_prior_measurement/test_plot.py
+tests/off_prior_measurement/test_write_conclusion.py
 ```
 
 Generated but not committed:
@@ -180,7 +183,6 @@ pillow>=10.0.0
 pytest>=8.2.0
 pyyaml>=6.0.1
 scipy>=1.11.0
-seaborn>=0.13.0
 torch>=2.2.0
 torchvision>=0.17.0
 tqdm>=4.66.0
@@ -1820,60 +1822,59 @@ import matplotlib
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
-import seaborn as sns
+
+
+def _group_labels(groups: list[str]) -> list[str]:
+    return [group.replace("_", "\n") for group in groups]
 
 
 def create_figures(scored_metrics_path: str | Path, figures_dir: str | Path) -> dict[str, Path]:
     scored = pd.read_csv(scored_metrics_path)
     figures_dir = Path(figures_dir)
     figures_dir.mkdir(parents=True, exist_ok=True)
-    sns.set_theme(style="whitegrid")
 
     control_distribution = figures_dir / "control_distribution.png"
+    groups = list(scored["source_group"].drop_duplicates())
+    data = [scored[scored["source_group"] == group]["normalized_l2"].dropna().to_numpy() for group in groups]
     plt.figure(figsize=(8, 4))
-    sns.boxplot(data=scored, x="source_group", y="normalized_l2", hue="conditioning_key")
-    plt.xticks(rotation=20, ha="right")
+    plt.boxplot(data, tick_labels=_group_labels(groups))
+    plt.ylabel("normalized_l2")
     plt.tight_layout()
     plt.savefig(control_distribution, dpi=200)
     plt.close()
 
     timestep_curves = figures_dir / "timestep_curves.png"
     plt.figure(figsize=(8, 4))
-    sns.lineplot(
-        data=scored,
-        x="timestep",
-        y="floor_adjusted_l2",
-        hue="source_group",
-        style="conditioning_key",
-        errorbar="se",
-    )
+    for group in groups:
+        subset = scored[scored["source_group"] == group]
+        curve = subset.groupby("timestep", as_index=False)["floor_adjusted_l2"].mean()
+        plt.plot(curve["timestep"], curve["floor_adjusted_l2"], marker="o", label=group)
+    plt.xlabel("timestep")
+    plt.ylabel("mean floor_adjusted_l2")
+    plt.legend()
     plt.tight_layout()
     plt.savefig(timestep_curves, dpi=200)
     plt.close()
 
-    frequency_rows = []
-    for _, row in scored.iterrows():
-        for band in ["low", "mid", "high"]:
-            frequency_rows.append(
-                {
-                    "source_group": row["source_group"],
-                    "conditioning_key": row["conditioning_key"],
-                    "timestep": row["timestep"],
-                    "band": band,
-                    "dct_delta": row[f"dct_delta_{band}"],
-                }
-            )
-    frequency = pd.DataFrame(frequency_rows)
-    pivot = (
-        frequency[frequency["source_group"] == "dreambooth_reference"]
-        .groupby(["timestep", "band"])["dct_delta"]
+    reference = scored[scored["source_group"] == "dreambooth_reference"]
+    if reference.empty:
+        reference = scored
+    heatmap_data = (
+        reference.groupby("timestep")[["dct_delta_low", "dct_delta_mid", "dct_delta_high"]]
         .mean()
-        .unstack("band")
+        .rename(columns={"dct_delta_low": "low", "dct_delta_mid": "mid", "dct_delta_high": "high"})
     )
     frequency_heatmap = figures_dir / "frequency_heatmap.png"
     plt.figure(figsize=(6, 4))
-    sns.heatmap(pivot[["low", "mid", "high"]], annot=True, fmt=".3g", cmap="viridis")
+    values = heatmap_data.to_numpy()
+    plt.imshow(values, aspect="auto", cmap="viridis")
+    plt.colorbar(label="mean DCT residual energy")
+    plt.xticks(np.arange(len(heatmap_data.columns)), heatmap_data.columns)
+    plt.yticks(np.arange(len(heatmap_data.index)), heatmap_data.index)
+    plt.xlabel("frequency band")
+    plt.ylabel("timestep")
     plt.tight_layout()
     plt.savefig(frequency_heatmap, dpi=200)
     plt.close()
@@ -1995,7 +1996,7 @@ Create `experiments/off_prior_measurement_v0/smoke_test/README.md` with:
 ````markdown
 # Off-Prior Measurement V0 Smoke Test
 
-Status: implementation target defined, results not generated yet.
+Status: pipeline code implemented and lightweight unit-tested; full SD 1.5/DreamBooth GPU run not generated yet.
 
 Purpose: measure whether DreamBooth reference-image denoising targets are farther from the SD 1.5 base prediction than base-generated controls.
 
