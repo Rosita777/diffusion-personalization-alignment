@@ -5,8 +5,9 @@ from pathlib import Path
 
 import pandas as pd
 
+from scripts.off_prior_measurement.csv_io import read_csv_preserve_strings
 
-SMOKE_SUBJECTS = ["dog", "cat", "backpack", "colorful_sneaker", "vase"]
+SMOKE_SUBJECTS = ["dog", "cat", "backpack", "clock", "vase"]
 
 
 def _fmt(value: float) -> str:
@@ -31,9 +32,9 @@ def _mean_adjusted(rows: pd.DataFrame) -> float:
 
 def write_conclusion(experiment_dir: str | Path) -> Path:
     experiment_dir = Path(experiment_dir)
-    subject_summary = pd.read_csv(experiment_dir / "summaries" / "subject_summary.csv")
-    regime_summary = pd.read_csv(experiment_dir / "summaries" / "regime_summary.csv")
-    scored = pd.read_csv(experiment_dir / "summaries" / "scored_metrics.csv")
+    subject_summary = read_csv_preserve_strings(experiment_dir / "summaries" / "subject_summary.csv")
+    regime_summary = read_csv_preserve_strings(experiment_dir / "summaries" / "regime_summary.csv")
+    scored = read_csv_preserve_strings(experiment_dir / "summaries" / "scored_metrics.csv")
 
     reference = subject_summary[subject_summary["source_group"] == "dreambooth_reference"]
     class_rows = _conditioning_rows(reference, "class")

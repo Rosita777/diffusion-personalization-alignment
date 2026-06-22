@@ -5,9 +5,11 @@ from pathlib import Path
 
 import pandas as pd
 
+from scripts.off_prior_measurement.csv_io import read_csv_preserve_strings
+
 
 def summarize_metrics(raw_metrics_path: str | Path, output_dir: str | Path) -> dict[str, Path]:
-    raw = pd.read_csv(raw_metrics_path)
+    raw = read_csv_preserve_strings(raw_metrics_path)
     output_dir = Path(output_dir)
     summaries_dir = output_dir / "summaries"
     summaries_dir.mkdir(parents=True, exist_ok=True)

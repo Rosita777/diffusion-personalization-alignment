@@ -17,12 +17,12 @@ subjects:
     class_prompt: a photo of a backpack
     class_context_prompt: a photo of a backpack on a table
     hard_control_prompt: a photo of a backpack half cropped in a crowded market at night
-  - subject_id: colorful_sneaker
-    hf_subset: colorful_sneaker
-    class_name: sneaker
-    class_prompt: a photo of a sneaker
-    class_context_prompt: a photo of a sneaker on the floor
-    hard_control_prompt: a photo of a sneaker in a rain puddle with neon reflections
+  - subject_id: clock
+    hf_subset: clock
+    class_name: clock
+    class_prompt: a photo of a clock
+    class_context_prompt: a photo of a clock on a wall
+    hard_control_prompt: a photo of a clock in a dark forest under moonlight
   - subject_id: vase
     hf_subset: vase
     class_name: vase

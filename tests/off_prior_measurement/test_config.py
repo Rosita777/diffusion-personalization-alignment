@@ -35,6 +35,7 @@ conditionings: ["null", "class", "class_context"]
 control_images_per_subject: 2
 batch_size: 1
 save_debug_tensors: false
+dataset_source: github
 """.strip(),
         encoding="utf-8",
     )
@@ -46,5 +47,6 @@ save_debug_tensors: false
     assert config.timesteps == [50, 200, 500, 800, 999]
     assert config.noise_seeds == [0, 1, 2]
     assert config.conditionings == ["null", "class", "class_context"]
+    assert config.dataset_source == "github"
     assert config.subjects[0].subject_id == "dog"
     assert config.subjects[0].class_prompt == "a photo of a dog"

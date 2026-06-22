@@ -37,6 +37,7 @@ class ExperimentConfig:
     batch_size: int
     save_debug_tensors: bool
     subjects: list[SubjectSpec]
+    dataset_source: str = "huggingface"
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
@@ -102,4 +103,5 @@ def load_config(path: str | Path) -> ExperimentConfig:
         batch_size=int(raw["batch_size"]),
         save_debug_tensors=bool(raw["save_debug_tensors"]),
         subjects=subjects,
+        dataset_source=str(raw.get("dataset_source", "huggingface")),
     )

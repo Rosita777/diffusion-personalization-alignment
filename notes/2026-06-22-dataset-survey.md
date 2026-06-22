@@ -194,6 +194,14 @@ Use 3-5 classes from DreamBooth-style subjects:
 - vase or clock: structured object if available;
 - one visually unusual subject if available.
 
+Current runnable smoke subset on 2026-06-22:
+
+```text
+dog, cat, backpack, clock, vase
+```
+
+This subset was chosen because the current environment can fetch these smaller DreamBooth files through the GitHub Contents API after Hugging Face and large raw GitHub image downloads failed or timed out. It is a practical smoke-test subset, not the final paper-scale subject selection.
+
 For each class/subject, construct three reference regimes:
 
 ```text

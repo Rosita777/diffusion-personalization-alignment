@@ -1,0 +1,85 @@
+subject_id,image_id,image_path,source_group,reference_regime,class_name,class_prompt,class_context_prompt,conditioning_key,conditioning_prompt
+dog,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/00.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/00.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/00.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/01.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/01.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/01.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/02.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/02.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/02.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/03.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/03.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/03.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/04.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/04.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/04.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+cat,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/00.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/00.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/00.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/01.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/01.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/01.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/02.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/02.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/02.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/03.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/03.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/03.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/04.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/04.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/04.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+backpack,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/00.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/00.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/00.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/01.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/01.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/01.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/02.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/02.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/02.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/03.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/03.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/03.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/04.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/04.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/04.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/05.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/05.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/05.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+clock,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/00.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/00.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/00.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/01.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/01.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/01.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/02.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/02.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/02.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/03.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/03.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/03.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/04.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/04.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/04.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/05.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/05.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/05.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+vase,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/00.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/00.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/00.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/01.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/01.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/01.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/02.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/02.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/02.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/03.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/03.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/03.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/04.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/04.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/04.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/05.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/05.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/05.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room

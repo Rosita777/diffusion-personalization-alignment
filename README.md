@@ -6,7 +6,7 @@ Core idea: prevent personalization forgetting by constructing denoising targets 
 
 ## Current Status
 
-Current stage: Stage 1 off-priorness measurement pipeline implemented for a DreamBooth smoke test. Lightweight unit tests pass. The full SD 1.5/DreamBooth GPU run has not been executed yet.
+Current stage: Stage 1 off-priorness measurement pipeline implemented and run for a DreamBooth smoke test. Lightweight unit tests pass. The first full SD 1.5/DreamBooth smoke run is complete under `experiments/off_prior_measurement_v0/smoke_test/` and produced a No-Go under the current 4-of-5 subject rule.
 
 Current design inputs:
 
@@ -16,7 +16,7 @@ docs/superpowers/plans/2026-06-22-stage-1-off-priorness-measurement.md
 notes/2026-06-22-dataset-survey.md
 ```
 
-Immediate next step: set up a Python environment with PyTorch, diffusers, transformers, and Hugging Face access, then run the smoke-test commands in `experiments/off_prior_measurement_v0/smoke_test/README.md`.
+Immediate next step: inspect why the current metric finds hard controls off-prior but does not find the selected DreamBooth references off-prior, then revise Stage 1 before starting personalization fine-tuning.
 
 ## Current Research Question
 
@@ -43,7 +43,7 @@ Reference-image denoising targets should be measured and corrected before traini
 
 Use DreamBooth / DreamBench first because it is the common benchmark for DreamBooth, Preserve and Personalize, and DCO-style personalization work:
 
-- Stage 1 smoke test: 3-5 DreamBooth subjects with easy / standard / hard reference regimes.
+- Stage 1 smoke test: 5 DreamBooth subjects with easy / standard / hard reference regimes. The current runnable subset is dog, cat, backpack, clock, and vase because this environment can reliably fetch those smaller DreamBooth files through the GitHub Contents API.
 - Main measurement: all 30 DreamBooth subjects.
 - Later expansion: CustomConcept101 or DreamBench++ after the off-priorness signal is validated.
 

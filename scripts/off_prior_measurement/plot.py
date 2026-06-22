@@ -11,13 +11,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from scripts.off_prior_measurement.csv_io import read_csv_preserve_strings
+
 
 def _group_labels(groups: list[str]) -> list[str]:
     return [group.replace("_", "\n") for group in groups]
 
 
 def create_figures(scored_metrics_path: str | Path, figures_dir: str | Path) -> dict[str, Path]:
-    scored = pd.read_csv(scored_metrics_path)
+    scored = read_csv_preserve_strings(scored_metrics_path)
     figures_dir = Path(figures_dir)
     figures_dir.mkdir(parents=True, exist_ok=True)
 

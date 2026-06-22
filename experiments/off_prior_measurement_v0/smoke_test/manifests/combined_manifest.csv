@@ -1,0 +1,289 @@
+subject_id,image_id,image_path,source_group,reference_regime,class_name,class_prompt,class_context_prompt,conditioning_key,conditioning_prompt
+dog,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/00.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/00.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/00.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/01.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/01.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/01.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/02.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/02.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/02.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/03.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/03.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/03.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/04.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/04.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/dog/04.jpg,dreambooth_reference,standard,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+cat,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/00.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/00.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/00.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/01.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/01.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/01.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/02.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/02.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/02.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/03.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/03.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/03.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/04.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/04.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/cat/04.jpg,dreambooth_reference,standard,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+backpack,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/00.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/00.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/00.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/01.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/01.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/01.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/02.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/02.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/02.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/03.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/03.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/03.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/04.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/04.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/04.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/05.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/05.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/backpack/05.jpg,dreambooth_reference,standard,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+clock,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/00.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/00.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/00.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/01.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/01.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/01.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/02.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/02.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/02.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/03.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/03.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/03.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/04.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/04.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/04.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/05.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/05.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/clock/05.jpg,dreambooth_reference,standard,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+vase,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/00.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/00.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,00,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/00.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/01.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/01.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,01,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/01.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/02.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/02.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,02,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/02.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/03.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/03.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,03,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/03.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/04.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/04.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,04,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/04.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/05.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/05.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,05,data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/05.jpg,dreambooth_reference,standard,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+dog,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0000.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0000.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0000.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0001.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0001.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0001.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0002.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0002.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0002.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0003.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0003.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/dog/easy/seed_0003.png,base_easy_control,easy_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0000.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0000.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0000.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0001.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0001.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0001.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0002.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0002.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0002.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0003.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,null,
+dog,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0003.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/dog/hard/seed_0003.png,base_hard_control,hard_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+cat,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0000.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0000.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0000.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0001.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0001.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0001.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0002.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0002.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0002.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0003.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0003.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/cat/easy/seed_0003.png,base_easy_control,easy_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0000.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0000.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0000.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0001.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0001.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0001.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0002.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0002.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0002.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0003.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,null,
+cat,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0003.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/cat/hard/seed_0003.png,base_hard_control,hard_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+backpack,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0000.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0000.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0000.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0001.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0001.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0001.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0002.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0002.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0002.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0003.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0003.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/backpack/easy/seed_0003.png,base_easy_control,easy_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0000.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0000.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0000.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0001.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0001.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0001.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0002.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0002.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0002.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0003.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,null,
+backpack,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0003.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/backpack/hard/seed_0003.png,base_hard_control,hard_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+clock,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0000.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0000.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0000.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0001.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0001.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0001.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0002.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0002.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0002.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0003.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0003.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/clock/easy/seed_0003.png,base_easy_control,easy_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0000.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0000.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0000.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0001.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0001.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0001.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0002.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0002.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0002.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0003.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,null,
+clock,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0003.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/clock/hard/seed_0003.png,base_hard_control,hard_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+vase,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0000.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0000.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0000.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0001.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0001.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0001.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0002.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0002.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0002.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0003.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0003.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/vase/easy/seed_0003.png,base_easy_control,easy_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0000.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0000.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,seed_0000,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0000.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0001.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0001.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,seed_0001,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0001.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0002.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0002.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,seed_0002,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0002.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0003.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,null,
+vase,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0003.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,seed_0003,data/cache/off_prior_measurement_v0/generated_controls/vase/hard/seed_0003.png,base_hard_control,hard_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+dog,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/0.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,,
+dog,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/0.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/0.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/1.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,,
+dog,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/1.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/1.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/2.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,,
+dog,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/2.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/2.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/3.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,,
+dog,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/3.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/3.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+dog,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/4.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,,
+dog,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/4.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class,a photo of a dog
+dog,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/dog/4.png,vae_roundtrip_control,roundtrip_control,dog,a photo of a dog,a photo of a dog in a natural scene,class_context,a photo of a dog in a natural scene
+cat,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/0.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,,
+cat,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/0.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/0.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/1.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,,
+cat,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/1.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/1.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/2.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,,
+cat,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/2.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/2.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/3.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,,
+cat,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/3.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/3.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+cat,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/4.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,,
+cat,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/4.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class,a photo of a cat
+cat,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/cat/4.png,vae_roundtrip_control,roundtrip_control,cat,a photo of a cat,a photo of a cat indoors,class_context,a photo of a cat indoors
+backpack,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/0.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,,
+backpack,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/0.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/0.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/1.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,,
+backpack,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/1.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/1.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/2.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,,
+backpack,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/2.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/2.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/3.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,,
+backpack,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/3.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/3.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/4.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,,
+backpack,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/4.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/4.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+backpack,5,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/5.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,,
+backpack,5,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/5.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class,a photo of a backpack
+backpack,5,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/backpack/5.png,vae_roundtrip_control,roundtrip_control,backpack,a photo of a backpack,a photo of a backpack on a table,class_context,a photo of a backpack on a table
+clock,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/0.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,,
+clock,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/0.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/0.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/1.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,,
+clock,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/1.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/1.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/2.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,,
+clock,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/2.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/2.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/3.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,,
+clock,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/3.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/3.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/4.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,,
+clock,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/4.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/4.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+clock,5,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/5.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,,
+clock,5,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/5.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class,a photo of a clock
+clock,5,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/clock/5.png,vae_roundtrip_control,roundtrip_control,clock,a photo of a clock,a photo of a clock on a wall,class_context,a photo of a clock on a wall
+vase,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/0.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,,
+vase,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/0.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,0,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/0.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/1.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,,
+vase,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/1.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,1,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/1.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/2.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,,
+vase,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/2.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,2,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/2.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/3.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,,
+vase,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/3.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,3,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/3.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/4.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,,
+vase,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/4.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,4,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/4.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room
+vase,5,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/5.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,,
+vase,5,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/5.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class,a photo of a vase
+vase,5,data/cache/off_prior_measurement_v0/vae_roundtrip_controls/vase/5.png,vae_roundtrip_control,roundtrip_control,vase,a photo of a vase,a photo of a vase in a room,class_context,a photo of a vase in a room

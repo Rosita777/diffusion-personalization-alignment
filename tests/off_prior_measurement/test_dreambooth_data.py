@@ -1,9 +1,14 @@
+import io
+import base64
+import zipfile
+
 import pandas as pd
 
-from scripts.off_prior_measurement.config import SubjectSpec
+from scripts.off_prior_measurement.config import ExperimentConfig, SubjectSpec
 from scripts.off_prior_measurement.dreambooth_data import (
     build_reference_manifest,
     conditioning_prompt,
+    download_dreambooth_subjects,
     write_combined_manifest,
 )
 
@@ -123,3 +128,292 @@ save_debug_tensors: false
         "vae_roundtrip_control",
     }
     assert (tmp_path / "experiment" / "manifests" / "reference_manifest.csv").exists()
+
+
+def test_download_dreambooth_subjects_falls_back_to_github(tmp_path, monkeypatch):
+    subject = SubjectSpec(
+        subject_id="dog",
+        hf_subset="dog",
+        class_name="dog",
+        class_prompt="a photo of a dog",
+        class_context_prompt="a photo of a dog in a natural scene",
+        hard_control_prompt="a photo of a dog under dramatic stage lighting",
+    )
+    config = ExperimentConfig(
+        experiment_name="smoke_test",
+        model_id="runwayml/stable-diffusion-v1-5",
+        prediction_type="epsilon",
+        device="cpu",
+        dtype="float32",
+        resolution=512,
+        dataset_repo="google/dreambooth",
+        subject_manifest=tmp_path / "subjects.yaml",
+        cache_dir=tmp_path / "cache",
+        output_dir=tmp_path / "experiment",
+        debug_output_dir=tmp_path / "outputs",
+        timesteps=[50],
+        noise_seeds=[0],
+        conditionings=["class"],
+        control_images_per_subject=1,
+        batch_size=1,
+        save_debug_tensors=False,
+        subjects=[subject],
+    )
+
+    def fail_snapshot_download(*args, **kwargs):
+        raise OSError("huggingface offline")
+
+    class FakeResponse:
+        def __init__(self, payload: bytes):
+            self.payload = payload
+            self.offset = 0
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, traceback):
+            return False
+
+        def read(self) -> bytes:
+            return self.payload
+
+    api_user_agents = []
+
+    def fake_urlopen(request, timeout):
+        url = getattr(request, "full_url", request)
+        if "api.github.com" in url:
+            if hasattr(request, "header_items"):
+                api_user_agents.append(dict(request.header_items()).get("User-agent"))
+            return FakeResponse(
+                b'[{"name": "00.jpg", "type": "file", '
+                b'"download_url": "https://raw.githubusercontent.com/google/dreambooth/main/dataset/dog/00.jpg"}]'
+            )
+        return FakeResponse(b"reference-image")
+
+    monkeypatch.setattr("huggingface_hub.snapshot_download", fail_snapshot_download)
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+
+    dataset_root = download_dreambooth_subjects(config)
+
+    image_path = dataset_root / "dog" / "00.jpg"
+    assert dataset_root == tmp_path / "cache" / "dreambooth_dataset" / "dataset"
+    assert api_user_agents == ["diffusion-personalization-target-alignment"]
+    assert image_path.read_bytes() == b"reference-image"
+
+
+def test_download_dreambooth_subjects_can_use_github_directly(tmp_path, monkeypatch):
+    subject = SubjectSpec(
+        subject_id="dog",
+        hf_subset="dog",
+        class_name="dog",
+        class_prompt="a photo of a dog",
+        class_context_prompt="a photo of a dog in a natural scene",
+        hard_control_prompt="a photo of a dog under dramatic stage lighting",
+    )
+    config = ExperimentConfig(
+        experiment_name="smoke_test",
+        model_id="runwayml/stable-diffusion-v1-5",
+        prediction_type="epsilon",
+        device="cpu",
+        dtype="float32",
+        resolution=512,
+        dataset_repo="google/dreambooth",
+        subject_manifest=tmp_path / "subjects.yaml",
+        cache_dir=tmp_path / "cache",
+        output_dir=tmp_path / "experiment",
+        debug_output_dir=tmp_path / "outputs",
+        timesteps=[50],
+        noise_seeds=[0],
+        conditionings=["class"],
+        control_images_per_subject=1,
+        batch_size=1,
+        save_debug_tensors=False,
+        subjects=[subject],
+        dataset_source="github",
+    )
+    called_huggingface = False
+
+    def fail_if_called(*args, **kwargs):
+        nonlocal called_huggingface
+        called_huggingface = True
+        raise AssertionError("Hugging Face should not be called in github dataset_source mode")
+
+    class FakeResponse:
+        def __init__(self, payload: bytes):
+            self.payload = payload
+            self.offset = 0
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, traceback):
+            return False
+
+        def read(self) -> bytes:
+            return self.payload
+
+    api_user_agents = []
+
+    def fake_urlopen(request, timeout):
+        url = getattr(request, "full_url", request)
+        if "api.github.com" in url:
+            if hasattr(request, "header_items"):
+                api_user_agents.append(dict(request.header_items()).get("User-agent"))
+            return FakeResponse(
+                b'[{"name": "00.jpg", "type": "file", '
+                b'"download_url": "https://raw.githubusercontent.com/google/dreambooth/main/dataset/dog/00.jpg"}]'
+            )
+        return FakeResponse(b"github-reference")
+
+    monkeypatch.setattr("huggingface_hub.snapshot_download", fail_if_called)
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+
+    dataset_root = download_dreambooth_subjects(config)
+
+    assert not called_huggingface
+    assert api_user_agents == ["diffusion-personalization-target-alignment"]
+    assert (dataset_root / "dog" / "00.jpg").read_bytes() == b"github-reference"
+
+
+def test_download_dreambooth_subjects_prefers_github_zip(tmp_path, monkeypatch):
+    subject = SubjectSpec(
+        subject_id="dog",
+        hf_subset="dog",
+        class_name="dog",
+        class_prompt="a photo of a dog",
+        class_context_prompt="a photo of a dog in a natural scene",
+        hard_control_prompt="a photo of a dog under dramatic stage lighting",
+    )
+    config = ExperimentConfig(
+        experiment_name="smoke_test",
+        model_id="runwayml/stable-diffusion-v1-5",
+        prediction_type="epsilon",
+        device="cpu",
+        dtype="float32",
+        resolution=512,
+        dataset_repo="google/dreambooth",
+        subject_manifest=tmp_path / "subjects.yaml",
+        cache_dir=tmp_path / "cache",
+        output_dir=tmp_path / "experiment",
+        debug_output_dir=tmp_path / "outputs",
+        timesteps=[50],
+        noise_seeds=[0],
+        conditionings=["class"],
+        control_images_per_subject=1,
+        batch_size=1,
+        save_debug_tensors=False,
+        subjects=[subject],
+        dataset_source="github",
+    )
+    archive = io.BytesIO()
+    with zipfile.ZipFile(archive, "w") as handle:
+        handle.writestr("dreambooth-main/dataset/dog/00.jpg", b"zip-reference")
+        handle.writestr("dreambooth-main/dataset/cat/00.jpg", b"unused")
+
+    class FakeResponse:
+        def __init__(self, payload: bytes):
+            self.payload = payload
+            self.offset = 0
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, traceback):
+            return False
+
+        def read(self, size=-1) -> bytes:
+            if size == -1:
+                start = self.offset
+                self.offset = len(self.payload)
+                return self.payload[start:]
+            start = self.offset
+            end = min(len(self.payload), start + size)
+            self.offset = end
+            return self.payload[start:end]
+
+    def fake_urlopen(request, timeout):
+        url = getattr(request, "full_url", request)
+        if "codeload.github.com" in url:
+            return FakeResponse(archive.getvalue())
+        raise AssertionError(f"Unexpected non-zip request: {url}")
+
+    monkeypatch.setattr("huggingface_hub.snapshot_download", lambda *args, **kwargs: None)
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+
+    dataset_root = download_dreambooth_subjects(config)
+
+    assert (dataset_root / "dog" / "00.jpg").read_bytes() == b"zip-reference"
+    assert not (dataset_root / "cat").exists()
+
+
+def test_download_dreambooth_subjects_can_use_github_api_contents(tmp_path, monkeypatch):
+    subject = SubjectSpec(
+        subject_id="clock",
+        hf_subset="clock",
+        class_name="clock",
+        class_prompt="a photo of a clock",
+        class_context_prompt="a photo of a clock on a wall",
+        hard_control_prompt="a photo of a clock in a dark forest",
+    )
+    config = ExperimentConfig(
+        experiment_name="smoke_test",
+        model_id="runwayml/stable-diffusion-v1-5",
+        prediction_type="epsilon",
+        device="cpu",
+        dtype="float32",
+        resolution=512,
+        dataset_repo="google/dreambooth",
+        subject_manifest=tmp_path / "subjects.yaml",
+        cache_dir=tmp_path / "cache",
+        output_dir=tmp_path / "experiment",
+        debug_output_dir=tmp_path / "outputs",
+        timesteps=[50],
+        noise_seeds=[0],
+        conditionings=["class"],
+        control_images_per_subject=1,
+        batch_size=1,
+        save_debug_tensors=False,
+        subjects=[subject],
+        dataset_source="github_api",
+    )
+    encoded = base64.b64encode(b"api-reference").decode("ascii")
+
+    class FakeResponse:
+        def __init__(self, payload: bytes):
+            self.payload = payload
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, traceback):
+            return False
+
+        def read(self) -> bytes:
+            return self.payload
+
+    def fake_urlopen(request, timeout):
+        url = getattr(request, "full_url", request)
+        headers = dict(request.header_items())
+        assert headers.get("Authorization") == "Bearer test-token"
+        if url.endswith("/dataset/clock?ref=main"):
+            return FakeResponse(
+                b'[{"name": "00.jpg", "type": "file", '
+                b'"url": "https://api.github.com/repos/google/dreambooth/contents/dataset/clock/00.jpg?ref=main"}]'
+            )
+        if url.endswith("/dataset/clock/00.jpg?ref=main"):
+            return FakeResponse(
+                (
+                    '{"name": "00.jpg", "encoding": "base64", "content": "'
+                    + encoded
+                    + '"}'
+                ).encode("utf-8")
+            )
+        raise AssertionError(f"Unexpected request: {url}")
+
+    monkeypatch.setattr("huggingface_hub.snapshot_download", lambda *args, **kwargs: None)
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    monkeypatch.setenv("GITHUB_TOKEN", "test-token")
+
+    dataset_root = download_dreambooth_subjects(config)
+
+    assert (dataset_root / "clock" / "00.jpg").read_bytes() == b"api-reference"

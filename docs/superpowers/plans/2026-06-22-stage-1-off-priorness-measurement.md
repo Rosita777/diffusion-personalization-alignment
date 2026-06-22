@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.10+, PyTorch, diffusers, transformers, accelerate, Hugging Face Hub, Pillow, NumPy, pandas, SciPy, PyYAML, matplotlib, pytest.
 
-**Implementation Status (2026-06-22):** Tasks 1-10 and the reusable parts of Tasks 11-12 are implemented and lightweight unit-tested. The real SD 1.5/DreamBooth GPU run, curated result files, and smoke-test `conclusion.md` are still pending.
+**Implementation Status (2026-06-22):** Tasks 1-12 are implemented, lightweight unit-tested, and run on the first SD 1.5/DreamBooth smoke subset. The current shell cannot reach Hugging Face reliably, so the smoke-test config uses a local ModelScope SD 1.5 cache and GitHub Contents API dataset access. The first run is No-Go: DreamBooth references are positive for only 2 of 5 subjects under class-conditioned settings, while hard controls are positive on average. Stage 2 fine-tuning should wait until Stage 1 is revised.
 
 ---
 

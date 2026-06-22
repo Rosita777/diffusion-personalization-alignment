@@ -1,10 +1,11 @@
 experiment_name: smoke_test
-model_id: runwayml/stable-diffusion-v1-5
+model_id: data/cache/modelscope/AI-ModelScope/stable-diffusion-v1-5
 prediction_type: epsilon
 device: cuda
 dtype: float16
 resolution: 512
 dataset_repo: google/dreambooth
+dataset_source: github_api
 subject_manifest: data/manifests/dreambooth_smoke_subjects.yaml
 cache_dir: data/cache/off_prior_measurement_v0
 output_dir: experiments/off_prior_measurement_v0/smoke_test
