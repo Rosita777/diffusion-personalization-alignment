@@ -434,12 +434,20 @@ Inputs:
 Reference regimes:
 
 ```text
-Easy / in-prior: base-generated or highly typical class images.
+Easy / in-prior control: base-generated or highly typical class images.
 Standard: original DreamBooth reference images.
 Hard / off-prior: unusual background, lighting, pose, crop, style, or strong subject-background correlation.
 ```
 
-The hard regime is a declared stress test for reference prior compatibility. It should not be presented as ordinary random sampling or hidden cherry-picking.
+The easy regime is a sanity control, not evidence for the phenomenon, because base-generated images are expected to be close to the base field. The hard regime is a declared stress test for reference prior compatibility. It should not be presented as ordinary random sampling or hidden cherry-picking.
+
+The primary analysis should use continuous off-priorness scores and downstream drift scores. Easy / standard / hard bins are useful for readability, but the key plot should be:
+
+```text
+pre-training off-priorness vs. downstream prior drift
+```
+
+not only a three-bin bar chart.
 
 Procedure:
 

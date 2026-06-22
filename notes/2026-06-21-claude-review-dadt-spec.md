@@ -53,3 +53,47 @@ small frequency sanity check
 ```
 
 The go/no-go signal is whether reference-image residuals are meaningfully above the base-generated image residual floor and robust to conditioning choice.
+
+## 2026-06-22 Follow-Up: Dataset And Stage 1 Review
+
+Model consulted:
+
+```text
+anthropic/claude-opus-4.6 through the 360 OpenAI-compatible API
+```
+
+Purpose: critique the DreamBooth-first dataset plan and the easy / standard / hard reference-prior-compatibility design.
+
+### Useful Critique
+
+- DreamBooth is the right first anchor because DreamBooth, Preserve and Personalize, and DCO-style work all use it.
+- Easy / standard / hard can be convincing if it is framed as a dose-response stress test.
+- Easy should be treated as a sanity control, not as evidence for the phenomenon. Base-generated images are expected to be close to the base field.
+- Hard examples are risky if selected only by human intuition. The safer framing is to define hard examples using documented attributes and report continuous off-priorness scores, not only bin averages.
+- The strongest Stage 1 evidence is:
+  - residual distributions above the base-generated error floor;
+  - timestep / frequency / region structure;
+  - pre-training off-priorness predicting post-training prior drift;
+  - controls ruling out VAE artifacts and conditioning mismatch.
+- The first convincing plot should be a continuous scatter plot:
+
+```text
+pre-training off-priorness vs. downstream prior drift
+```
+
+not only:
+
+```text
+Easy vs. Standard vs. Hard bar chart
+```
+
+### New Risks To Track
+
+- The residual gap may exist but fail to predict forgetting.
+- Prior preservation may already remove most drift on standard DreamBooth subjects.
+- Off-priorness may be confounded with data scarcity or ordinary OOD pixel statistics.
+- DreamBooth has only 30 subjects, so correlation claims should use continuous scores and confidence intervals rather than over-relying on three coarse bins.
+
+### Current Decision Update
+
+Keep DreamBooth as the first dataset and keep the easy / standard / hard idea, but treat it as a controlled stress-test view. The primary analysis should be continuous off-priorness and downstream drift, with easy/base-generated images as controls.
