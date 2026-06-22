@@ -12,11 +12,12 @@ Current design inputs:
 
 ```text
 docs/superpowers/specs/2026-06-21-distribution-aligned-denoising-targets-design.md
+docs/superpowers/specs/2026-06-22-prior-compatibility-ladder-design.md
 docs/superpowers/plans/2026-06-22-stage-1-off-priorness-measurement.md
 notes/2026-06-22-dataset-survey.md
 ```
 
-Immediate next step: inspect why the current metric finds hard controls off-prior but does not find the selected DreamBooth references off-prior, then revise Stage 1 before starting personalization fine-tuning.
+Immediate next step: review the Stage 1 v2 prior-compatibility ladder design, then write an implementation plan if the design is approved.
 
 ## Current Research Question
 
