@@ -6,16 +6,17 @@ Core idea: prevent personalization forgetting by constructing denoising targets 
 
 ## Current Status
 
-Current stage: research design v0 plus dataset survey for the first measurement experiment. No experiment code or training pipeline has been implemented yet.
+Current stage: research design v0 plus a concrete Stage 1 measurement implementation plan. No experiment code or training pipeline has been implemented yet.
 
 Current design inputs:
 
 ```text
 docs/superpowers/specs/2026-06-21-distribution-aligned-denoising-targets-design.md
+docs/superpowers/plans/2026-06-22-stage-1-off-priorness-measurement.md
 notes/2026-06-22-dataset-survey.md
 ```
 
-Immediate next step: create an implementation plan for the Stage 1 off-priorness measurement experiment on a DreamBooth subset, including easy / standard / hard reference-prior-compatibility regimes, base-error-floor controls, and conditioning controls.
+Immediate next step: implement Task 1 of the Stage 1 off-priorness measurement plan, starting with the Python measurement package skeleton and environment file.
 
 ## Current Research Question
 
