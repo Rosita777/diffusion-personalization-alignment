@@ -22,6 +22,10 @@ Remote commits created during setup:
 - `c2197f90b5e36969d50f6dbc3fcaa8c02ebd31df`: add project structure and hygiene rules.
 - `4e23a4d45b7cd02938852ca15362c80a16a88471`: record this GitHub backup setup note.
 
+Latest API backups:
+
+- 2026-06-22: local `26e165aad8ec554149a175ab1f2e8a3ff04cd8ff` (`feat: run stage one smoke measurement`) was backed up as remote `81ba6317d9550f505397baed145a96bf361242f7`. The API upload reported `contains_token False`.
+
 Important caution:
 
 Because the initial remote backup used the GitHub API instead of `git push`, the local git commit hash and remote commit hash may differ. Before relying on ordinary `git push`, first check whether direct GitHub access works and reconcile local history with `origin/main` safely. Do not force-push without confirming that no remote-only work will be lost.
