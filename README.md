@@ -14,10 +14,11 @@ Current design inputs:
 docs/superpowers/specs/2026-06-21-distribution-aligned-denoising-targets-design.md
 docs/superpowers/specs/2026-06-22-prior-compatibility-ladder-design.md
 docs/superpowers/plans/2026-06-22-stage-1-off-priorness-measurement.md
+docs/superpowers/plans/2026-06-22-stage-1-v2-prior-compatibility-ladder.md
 notes/2026-06-22-dataset-survey.md
 ```
 
-Immediate next step: review the Stage 1 v2 prior-compatibility ladder design, then write an implementation plan if the design is approved.
+Immediate next step: execute the Stage 1 v2 prior-compatibility ladder implementation plan, then run the 8-subject ladder experiment.
 
 ## Current Research Question
 
