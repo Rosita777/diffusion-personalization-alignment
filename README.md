@@ -6,15 +6,16 @@ Core idea: prevent personalization forgetting by constructing denoising targets 
 
 ## Current Status
 
-Current stage: research design v0 after one external reviewer-style critique pass. No experiment code or training pipeline has been implemented yet.
+Current stage: research design v0 plus dataset survey for the first measurement experiment. No experiment code or training pipeline has been implemented yet.
 
-Current design spec:
+Current design inputs:
 
 ```text
 docs/superpowers/specs/2026-06-21-distribution-aligned-denoising-targets-design.md
+notes/2026-06-22-dataset-survey.md
 ```
 
-Immediate next step: create an implementation plan for the Stage 1 off-priorness measurement experiment with base-error-floor and conditioning controls.
+Immediate next step: create an implementation plan for the Stage 1 off-priorness measurement experiment on a DreamBooth subset, including easy / standard / hard reference-prior-compatibility regimes, base-error-floor controls, and conditioning controls.
 
 ## Current Research Question
 
@@ -36,6 +37,16 @@ Reference-image denoising targets should be measured and corrected before traini
 - Preserve and Personalize: distribution preservation through regularization or constrained optimization.
 - MixSD: main inspiration; analyzes target distribution gap and constructs distribution-aligned targets.
 - Spectral Progressive Diffusion: motivates timestep- and frequency-aware treatment of denoising signals.
+
+## Current Dataset Decision
+
+Use DreamBooth / DreamBench first because it is the common benchmark for DreamBooth, Preserve and Personalize, and DCO-style personalization work:
+
+- Stage 1 smoke test: 3-5 DreamBooth subjects with easy / standard / hard reference regimes.
+- Main measurement: all 30 DreamBooth subjects.
+- Later expansion: CustomConcept101 or DreamBench++ after the off-priorness signal is validated.
+
+The hard reference regime should be documented as a controlled stress test, not hidden example selection.
 
 ## Project Hygiene Rule
 

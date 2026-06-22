@@ -411,15 +411,35 @@ Chosen v0 direction: Option C, with Option A as the first experiment and Option 
 
 ## Minimum Experiment Plan
 
+Dataset survey note:
+
+```text
+notes/2026-06-22-dataset-survey.md
+```
+
+The current dataset decision is to start with DreamBooth / DreamBench because it is the shared benchmark for DreamBooth, Preserve and Personalize, and DCO-style personalization evaluation. CustomConcept101 and DreamBench++ are reserved for later scale-up after the diagnostic signal is validated.
+
 ### Stage 1: Measurement Before Training
 
 Goal: show that reference targets are off-prior in a structured way, above the pretrained model's ordinary prediction-error floor.
 
 Inputs:
 
-- DreamBooth dataset or a small curated subset;
-- CustomConcept101 if available;
+- DreamBooth dataset, starting with a 3-5 subject smoke-test subset;
+- easy / standard / hard reference-prior-compatibility regimes around the DreamBooth-style subjects;
+- all 30 DreamBooth subjects for the main measurement after the smoke test;
+- CustomConcept101 or DreamBench++ only after the DreamBooth diagnostic works;
 - SD 1.5 first, then SDXL if resources allow.
+
+Reference regimes:
+
+```text
+Easy / in-prior: base-generated or highly typical class images.
+Standard: original DreamBooth reference images.
+Hard / off-prior: unusual background, lighting, pose, crop, style, or strong subject-background correlation.
+```
+
+The hard regime is a declared stress test for reference prior compatibility. It should not be presented as ordinary random sampling or hidden cherry-picking.
 
 Procedure:
 
@@ -656,12 +676,15 @@ Out of scope for v0:
 ## Immediate Next Steps
 
 1. Use the near-neighbor reading note at `notes/2026-06-21-near-neighbor-reading.md` as the current related-work baseline.
-2. Create an implementation plan for Stage 1 measurement only, scoped to:
+2. Use the dataset survey at `notes/2026-06-22-dataset-survey.md` as the current benchmark-selection baseline.
+3. Create an implementation plan for Stage 1 measurement only, scoped to:
+   - DreamBooth 3-5 subject smoke test;
+   - easy / standard / hard reference-prior-compatibility regimes;
    - raw reference-image off-priorness;
    - base-generated error floor;
    - `c_base` ablation;
    - timestep/SNR normalization;
    - a small latent-vs-image frequency sanity check.
-3. Set up environment and choose the first backbone, likely SD 1.5.
-4. Run a small measurement smoke test on 3 to 5 subjects before scaling.
-5. Use the smoke test as a go/no-go check: if reference residuals are not above the base-generated floor, the off-prior framing must be revised before method work.
+4. Set up environment and choose the first backbone, likely SD 1.5.
+5. Run the small measurement smoke test before scaling to all 30 DreamBooth subjects.
+6. Use the smoke test as a go/no-go check: if reference residuals are not above the base-generated floor, the off-prior framing must be revised before method work.
