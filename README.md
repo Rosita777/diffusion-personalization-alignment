@@ -13,12 +13,13 @@ Current design inputs:
 ```text
 docs/superpowers/specs/2026-06-21-distribution-aligned-denoising-targets-design.md
 docs/superpowers/specs/2026-06-22-prior-compatibility-ladder-design.md
+docs/superpowers/specs/2026-06-23-roundtrip-confound-clean-offpriorness-design.md
 docs/superpowers/plans/2026-06-22-stage-1-off-priorness-measurement.md
 docs/superpowers/plans/2026-06-22-stage-1-v2-prior-compatibility-ladder.md
 notes/2026-06-22-dataset-survey.md
 ```
 
-Immediate next step: revise the measurement/control design before Stage 2 personalization fine-tuning. The v2 ladder found a small standard-reference elevation over easy controls, but current deterministic hard-reference transforms were not more off-prior than standard references and the VAE roundtrip control is a confound.
+Immediate next step: Stage 1.3 roundtrip-confound diagnosis. Reuse the completed v2 outputs to compute clean off-priorness scores that subtract VAE roundtrip artifacts before deciding whether Stage 2 personalization fine-tuning is scientifically justified.
 
 ## Current Research Question
 
