@@ -38,6 +38,9 @@ class ExperimentConfig:
     save_debug_tensors: bool
     subjects: list[SubjectSpec]
     dataset_source: str = "huggingface"
+    hard_reference_variants: list[str] | None = None
+    hard_reference_limit_per_subject: int | None = None
+    reference_images_per_subject: int | None = None
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
@@ -83,6 +86,19 @@ def load_config(path: str | Path) -> ExperimentConfig:
     subjects = [SubjectSpec(**subject) for subject in subjects_raw]
     if not subjects:
         raise ValueError(f"No subjects configured in {subject_manifest}")
+    hard_reference_variants = raw.get(
+        "hard_reference_variants",
+        [
+            "crop_large_subject",
+            "crop_small_subject",
+            "low_light_color_shift",
+            "high_saturation_color_shift",
+            "background_clutter_overlay",
+            "edge_reflection_texture",
+        ],
+    )
+    hard_reference_limit = raw.get("hard_reference_limit_per_subject")
+    reference_image_limit = raw.get("reference_images_per_subject")
 
     return ExperimentConfig(
         experiment_name=str(raw["experiment_name"]),
@@ -104,4 +120,9 @@ def load_config(path: str | Path) -> ExperimentConfig:
         save_debug_tensors=bool(raw["save_debug_tensors"]),
         subjects=subjects,
         dataset_source=str(raw.get("dataset_source", "huggingface")),
+        hard_reference_variants=[str(item) for item in hard_reference_variants],
+        hard_reference_limit_per_subject=None
+        if hard_reference_limit is None
+        else int(hard_reference_limit),
+        reference_images_per_subject=None if reference_image_limit is None else int(reference_image_limit),
     )

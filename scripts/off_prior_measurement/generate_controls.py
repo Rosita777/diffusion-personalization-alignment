@@ -65,9 +65,9 @@ def build_control_manifest(
 ) -> pd.DataFrame:
     rows: list[dict[str, str]] = []
     for subject in subjects:
-        for regime_dir, source_group, reference_regime in [
-            ("easy", "base_easy_control", "easy_control"),
-            ("hard", "base_hard_control", "hard_control"),
+        for regime_dir, source_group, reference_regime, hardness_axis in [
+            ("easy", "base_easy_control", "easy_control", "none"),
+            ("hard", "base_hard_control", "hard_control", "clutter_background"),
         ]:
             image_dir = generated_root / subject.subject_id / regime_dir
             images = sorted(image_dir.glob("*.png"))
@@ -82,6 +82,10 @@ def build_control_manifest(
                             "image_path": str(image_path),
                             "source_group": source_group,
                             "reference_regime": reference_regime,
+                            "hardness_axis": hardness_axis,
+                            "source_standard_image": "",
+                            "variant_id": "",
+                            "transform_parameters": "{}",
                             "class_name": subject.class_name,
                             "class_prompt": subject.class_prompt,
                             "class_context_prompt": subject.class_context_prompt,

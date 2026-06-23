@@ -2,7 +2,16 @@
 
 Date: 2026-06-22
 
-Status: design spec. Implementation has not started. This spec revises Stage 1 after the first smoke run produced a No-Go.
+Status: implemented and run as Stage 1 v2. The completed 8-subject smoke run also produced a No-Go; keep this spec as the design record, but treat the v2 result as evidence that the off-priorness metric/control construction needs revision before personalization fine-tuning.
+
+Completed run note, 2026-06-23:
+
+- Experiment directory: `experiments/off_prior_measurement_v0/ladder_v2/`.
+- Runnable subject set: `dog`, `cat`, `backpack`, `vase`, `colorful_sneaker`, `shiny_sneaker`, `fancy_boot`, `dog7`.
+- `dog7` replaced `grey_sloth_plushie` because large GitHub blob reads for the latter repeatedly stalled in this environment.
+- The run used `reference_images_per_subject: 1` as a network-stable smoke setting.
+- Go / No-Go result: No-Go. Hard references were positive for 3 of 8 subjects, hard references exceeded standard references for 0 of 8 subjects, standard references exceeded easy controls for 5 of 8 subjects, and the roundtrip sanity check failed.
+- Next research action: revise measurement and controls, especially VAE/roundtrip confounds and natural hard-reference selection, before Stage 2.
 
 ## Purpose
 
@@ -149,11 +158,13 @@ poop_emoji
 
 These subjects have larger images, stronger texture, more unusual appearance, or more prior-challenging scenes. They are better candidates for testing the target-distribution-gap hypothesis.
 
-The first v2 run should use at least:
+The planned first v2 run originally targeted:
 
 ```text
 dog, cat, backpack, vase, colorful_sneaker, shiny_sneaker, fancy_boot, grey_sloth_plushie
 ```
+
+The completed first v2 run used `dog7` instead of `grey_sloth_plushie` because of repeated download stalls.
 
 If GitHub raw downloads still hang, the implementation should support one of:
 

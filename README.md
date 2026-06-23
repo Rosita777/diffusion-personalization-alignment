@@ -6,7 +6,7 @@ Core idea: prevent personalization forgetting by constructing denoising targets 
 
 ## Current Status
 
-Current stage: Stage 1 off-priorness measurement pipeline implemented and run for a DreamBooth smoke test. Lightweight unit tests pass. The first full SD 1.5/DreamBooth smoke run is complete under `experiments/off_prior_measurement_v0/smoke_test/` and produced a No-Go under the current 4-of-5 subject rule.
+Current stage: Stage 1 off-priorness measurement pipeline implemented and run for two DreamBooth smoke tests. The first SD 1.5/DreamBooth smoke run is complete under `experiments/off_prior_measurement_v0/smoke_test/` and produced a No-Go under the 4-of-5 subject rule. Stage 1 v2 prior-compatibility ladder is complete under `experiments/off_prior_measurement_v0/ladder_v2/` and also produced a No-Go under the ladder criteria.
 
 Current design inputs:
 
@@ -18,7 +18,7 @@ docs/superpowers/plans/2026-06-22-stage-1-v2-prior-compatibility-ladder.md
 notes/2026-06-22-dataset-survey.md
 ```
 
-Immediate next step: execute the Stage 1 v2 prior-compatibility ladder implementation plan, then run the 8-subject ladder experiment.
+Immediate next step: revise the measurement/control design before Stage 2 personalization fine-tuning. The v2 ladder found a small standard-reference elevation over easy controls, but current deterministic hard-reference transforms were not more off-prior than standard references and the VAE roundtrip control is a confound.
 
 ## Current Research Question
 
@@ -45,8 +45,9 @@ Reference-image denoising targets should be measured and corrected before traini
 
 Use DreamBooth / DreamBench first because it is the common benchmark for DreamBooth, Preserve and Personalize, and DCO-style personalization work:
 
-- Stage 1 smoke test: 5 DreamBooth subjects with easy / standard / hard reference regimes. The current runnable subset is dog, cat, backpack, clock, and vase because this environment can reliably fetch those smaller DreamBooth files through the GitHub Contents API.
-- Main measurement: all 30 DreamBooth subjects.
+- Stage 1 smoke test: 5 DreamBooth subjects with easy / standard / hard reference regimes. The runnable subset was dog, cat, backpack, clock, and vase.
+- Stage 1 v2 ladder smoke test: 8 DreamBooth subjects with easy controls, standard references, deterministic hard-reference variants, hard controls, and VAE roundtrip controls. The completed subset is dog, cat, backpack, vase, colorful_sneaker, shiny_sneaker, fancy_boot, and dog7. It uses one reference image per subject because GitHub-hosted large DreamBooth files were unstable in this environment.
+- Future paper-scale measurement: all 30 DreamBooth subjects after the off-priorness metric and controls are revised.
 - Later expansion: CustomConcept101 or DreamBench++ after the off-priorness signal is validated.
 
 The hard reference regime should be documented as a controlled stress test, not hidden example selection.

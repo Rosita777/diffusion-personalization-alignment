@@ -8,7 +8,9 @@
 
 **Tech Stack:** Python 3.10 in `/home/deepseek_VG/.conda/envs/dyme`, PyTorch, diffusers, Pillow, NumPy, pandas, SciPy, PyYAML, matplotlib, pytest, local ModelScope SD 1.5 cache, GitHub DreamBooth dataset access.
 
-**Implementation Status:** Plan written on 2026-06-22 after the v0 smoke test returned No-Go. Code execution has not started for v2.
+**Implementation Status:** Implemented and run. The completed 2026-06-23 v2 smoke run produced a No-Go; this plan is now an execution record rather than the active next-step plan.
+
+**Outcome:** The final smoke run used `dog`, `cat`, `backpack`, `vase`, `colorful_sneaker`, `shiny_sneaker`, `fancy_boot`, and `dog7` with `reference_images_per_subject: 1`. `dog7` replaced `grey_sloth_plushie` because large blob downloads repeatedly stalled. Results are saved under `experiments/off_prior_measurement_v0/ladder_v2/`: hard-reference positive subjects 3/8, hard > standard 0/8, standard > easy 5/8, roundtrip sanity check false, final decision No-Go.
 
 ---
 
@@ -19,7 +21,7 @@ This plan implements Stage 1 v2 measurement only.
 In scope:
 
 - 8-subject prior-compatibility smoke run:
-  `dog`, `cat`, `backpack`, `vase`, `colorful_sneaker`, `shiny_sneaker`, `fancy_boot`, `grey_sloth_plushie`.
+  planned `dog`, `cat`, `backpack`, `vase`, `colorful_sneaker`, `shiny_sneaker`, `fancy_boot`, `grey_sloth_plushie`; completed with `dog7` replacing `grey_sloth_plushie`.
 - Existing controls:
   `base_easy_control`, `base_hard_control`, `vae_roundtrip_control`.
 - Existing standard DreamBooth references.

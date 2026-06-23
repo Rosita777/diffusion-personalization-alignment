@@ -72,3 +72,40 @@ def test_summarize_metrics_restores_empty_null_conditioning_key(tmp_path):
 
     regime_summary = pd.read_csv(paths["regime_summary"], keep_default_na=False)
     assert set(regime_summary["conditioning_key"]) == {"null"}
+
+
+def test_summarize_metrics_writes_ladder_summary(tmp_path):
+    raw_path = tmp_path / "raw_metrics.csv"
+    output_dir = tmp_path / "experiment"
+    rows = []
+    for regime, group, value in [
+        ("easy_control", "base_easy_control", 0.20),
+        ("standard_reference", "dreambooth_reference", 0.35),
+        ("hard_reference", "dreambooth_hard_reference", 0.60),
+        ("hard_control", "base_hard_control", 0.50),
+        ("roundtrip_control", "vae_roundtrip_control", 0.30),
+    ]:
+        rows.append(
+            {
+                "subject_id": "dog",
+                "source_group": group,
+                "reference_regime": regime,
+                "hardness_axis": "none",
+                "conditioning_key": "class",
+                "timestep": 50,
+                "normalized_l2": value,
+                "cosine_distance": 0.1,
+                "dct_delta_low": value,
+                "dct_delta_mid": value,
+                "dct_delta_high": value,
+            }
+        )
+    pd.DataFrame(rows).to_csv(raw_path, index=False)
+
+    paths = summarize_metrics(raw_path, output_dir)
+
+    ladder = pd.read_csv(paths["ladder_summary"])
+    row = ladder.iloc[0]
+    assert round(row["standard_minus_easy"], 6) == 0.15
+    assert round(row["hard_minus_standard"], 6) == 0.25
+    assert bool(row["ladder_monotonic"]) is True

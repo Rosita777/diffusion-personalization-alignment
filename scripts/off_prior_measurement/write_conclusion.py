@@ -7,27 +7,50 @@ import pandas as pd
 
 from scripts.off_prior_measurement.csv_io import read_csv_preserve_strings
 
-SMOKE_SUBJECTS = ["dog", "cat", "backpack", "clock", "vase"]
-
 
 def _fmt(value: float) -> str:
     return f"{value:.4f}"
 
 
-def _conditioning_rows(reference: pd.DataFrame, key: str) -> pd.DataFrame:
-    return reference[reference["conditioning_key"] == key]
+def _best_conditioning_ladder(ladder: pd.DataFrame) -> tuple[str, pd.DataFrame]:
+    candidates: list[tuple[int, str, pd.DataFrame]] = []
+    for key in ["class", "class_context"]:
+        rows = ladder[ladder["conditioning_key"] == key]
+        if rows.empty:
+            continue
+        hard_positive = int((rows["hard_reference"] > 0).sum())
+        hard_gt_standard = int((rows["hard_reference"] > rows["standard_reference"]).sum())
+        standard_gt_easy = int((rows["standard_reference"] > rows["easy_control"]).sum())
+        candidates.append((hard_positive + hard_gt_standard + standard_gt_easy, key, rows))
+    if not candidates:
+        null_rows = ladder[ladder["conditioning_key"] == "null"]
+        if not null_rows.empty:
+            return "null", null_rows
+        return "none", ladder.iloc[0:0]
+    _, key, rows = max(candidates, key=lambda item: item[0])
+    return key, rows
 
 
-def _positive_count(rows: pd.DataFrame) -> int:
+def _strongest_timestep(regime_summary: pd.DataFrame) -> str:
+    rows = regime_summary[regime_summary["source_group"] == "dreambooth_hard_reference"]
     if rows.empty:
-        return 0
-    return int((rows["mean_floor_adjusted_l2"] > 0).sum())
+        rows = regime_summary
+    if rows.empty or "timestep" not in rows.columns:
+        return "not available"
+    strongest = rows.sort_values("mean_floor_adjusted_l2", ascending=False).iloc[0]
+    return str(int(strongest["timestep"]))
 
 
-def _mean_adjusted(rows: pd.DataFrame) -> float:
+def _strongest_band(scored: pd.DataFrame) -> str:
+    rows = scored[scored["source_group"] == "dreambooth_hard_reference"]
     if rows.empty:
-        return float("nan")
-    return float(rows["mean_floor_adjusted_l2"].mean())
+        rows = scored
+    band_means = {
+        "low": rows["dct_delta_low"].mean(),
+        "mid": rows["dct_delta_mid"].mean(),
+        "high": rows["dct_delta_high"].mean(),
+    }
+    return max(band_means, key=band_means.get)
 
 
 def write_conclusion(experiment_dir: str | Path) -> Path:
@@ -35,70 +58,85 @@ def write_conclusion(experiment_dir: str | Path) -> Path:
     subject_summary = read_csv_preserve_strings(experiment_dir / "summaries" / "subject_summary.csv")
     regime_summary = read_csv_preserve_strings(experiment_dir / "summaries" / "regime_summary.csv")
     scored = read_csv_preserve_strings(experiment_dir / "summaries" / "scored_metrics.csv")
+    ladder = read_csv_preserve_strings(experiment_dir / "summaries" / "ladder_summary.csv")
 
-    reference = subject_summary[subject_summary["source_group"] == "dreambooth_reference"]
-    class_rows = _conditioning_rows(reference, "class")
-    context_rows = _conditioning_rows(reference, "class_context")
-    null_rows = _conditioning_rows(reference, "null")
+    for column in ["easy_control", "standard_reference", "hard_reference", "hard_control", "roundtrip_control"]:
+        if column not in ladder.columns:
+            ladder[column] = float("nan")
 
-    class_positive = _positive_count(class_rows)
-    context_positive = _positive_count(context_rows)
-    null_positive = _positive_count(null_rows)
-    go = class_positive >= 4 or context_positive >= 4
+    best_conditioning, ladder_rows = _best_conditioning_ladder(ladder)
+    subject_count = int(ladder_rows["subject_id"].nunique()) if not ladder_rows.empty else 0
 
-    strongest_timestep_row = (
-        regime_summary[regime_summary["source_group"] == "dreambooth_reference"]
-        .sort_values("mean_floor_adjusted_l2", ascending=False)
-        .iloc[0]
+    hard_positive = int((ladder_rows["hard_reference"] > 0).sum()) if subject_count else 0
+    hard_gt_standard = (
+        int((ladder_rows["hard_reference"] > ladder_rows["standard_reference"]).sum()) if subject_count else 0
     )
-    dreambooth_scored = scored[scored["source_group"] == "dreambooth_reference"]
-    band_means = {
-        "low": dreambooth_scored["dct_delta_low"].mean(),
-        "mid": dreambooth_scored["dct_delta_mid"].mean(),
-        "high": dreambooth_scored["dct_delta_high"].mean(),
-    }
-    strongest_band = max(band_means, key=band_means.get)
+    standard_gt_easy = (
+        int((ladder_rows["standard_reference"] > ladder_rows["easy_control"]).sum()) if subject_count else 0
+    )
 
-    conclusion = f"""# Stage 1 Smoke-Test Conclusion
+    base_hard_rows = subject_summary[
+        (subject_summary["source_group"] == "base_hard_control")
+        & (subject_summary["conditioning_key"] == best_conditioning)
+    ]
+    base_hard_positive = int((base_hard_rows["mean_floor_adjusted_l2"] > 0).sum())
+    roundtrip_ok = bool(
+        subject_count
+        and (ladder_rows["roundtrip_control"] <= ladder_rows["standard_reference"]).sum() >= subject_count // 2
+    )
 
-Date: 2026-06-22
+    go = (
+        hard_positive >= 6
+        and hard_gt_standard >= 6
+        and standard_gt_easy >= 4
+        and base_hard_positive >= max(1, subject_count // 2)
+        and roundtrip_ok
+    )
 
-Config:
+    strongest_timestep = _strongest_timestep(regime_summary)
+    strongest_band = _strongest_band(scored)
+    hard_mean = float(ladder_rows["hard_reference"].mean()) if subject_count else float("nan")
+    standard_mean = float(ladder_rows["standard_reference"].mean()) if subject_count else float("nan")
+    easy_mean = float(ladder_rows["easy_control"].mean()) if subject_count else float("nan")
 
-```text
-configs/off_prior_measurement_v0/smoke_test.yaml
-```
+    conclusion = f"""# Stage 1 V2 Prior-Compatibility Ladder Conclusion
+
+Date: 2026-06-23
 
 Primary comparison:
 
 ```text
-dreambooth_reference vs. base_easy_control
+easy_control < standard_reference < hard_reference
 ```
 
-Subjects:
+Selected conditioning:
 
 ```text
-{", ".join(SMOKE_SUBJECTS)}
+{best_conditioning}
 ```
 
 Result summary:
 
-- Class-prompt conditioning: {class_positive} of 5 subjects have positive mean floor-adjusted residual; mean value = {_fmt(_mean_adjusted(class_rows))}.
-- Class-plus-context conditioning: {context_positive} of 5 subjects have positive mean floor-adjusted residual; mean value = {_fmt(_mean_adjusted(context_rows))}.
-- Null conditioning: {null_positive} of 5 subjects have positive mean floor-adjusted residual; mean value = {_fmt(_mean_adjusted(null_rows))}.
-- Strongest timestep by mean floor-adjusted residual: {int(strongest_timestep_row['timestep'])}.
+- Hard-reference positive subjects: {hard_positive} of {subject_count}.
+- Hard greater than standard: {hard_gt_standard} of {subject_count}.
+- Standard greater than easy: {standard_gt_easy} of {subject_count}.
+- Base hard-control positive subjects: {base_hard_positive} of {subject_count}.
+- Roundtrip sanity check passed: {roundtrip_ok}.
+- Mean easy-control floor-adjusted residual: {_fmt(easy_mean)}.
+- Mean standard-reference floor-adjusted residual: {_fmt(standard_mean)}.
+- Mean hard-reference floor-adjusted residual: {_fmt(hard_mean)}.
+- Strongest timestep by mean floor-adjusted residual: {strongest_timestep}.
 - Strongest latent DCT band by mean residual energy: {strongest_band}.
 
 Interpretation:
 
 - Go / no-go decision: {"Go" if go else "No-Go"}.
-- Main reason: class or class-plus-context conditioning passes the 4-of-5 subject rule = {go}.
-- Most important caveat: this smoke test measures target residual structure only; it does not prove downstream forgetting until Stage 2.
+- If Go: proceed to Stage 2 correlation-with-forgetting and DADT target-correction design.
+- If No-Go: revise off-priorness measurement before any personalization fine-tuning.
 
-Next step:
+Caveat:
 
-- If Go: create the Stage 2 correlation-with-forgetting plan.
-- If No-Go: revise the off-priorness metric or conditioning design before any personalization training.
+This conclusion measures target residual structure only. It does not prove downstream forgetting until Stage 2 fine-tuning and prior-drift evaluation are run.
 """
     path = experiment_dir / "conclusion.md"
     path.write_text(conclusion, encoding="utf-8")

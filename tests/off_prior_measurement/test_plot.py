@@ -23,6 +23,7 @@ def test_create_figures_writes_png_files(tmp_path):
                 "subject_id": "dog",
                 "source_group": "dreambooth_reference",
                 "reference_regime": "standard",
+                "hardness_axis": "none",
                 "conditioning_key": "class",
                 "timestep": 50,
                 "floor_adjusted_l2": 0.3,
@@ -30,6 +31,19 @@ def test_create_figures_writes_png_files(tmp_path):
                 "dct_delta_low": 2.0,
                 "dct_delta_mid": 1.0,
                 "dct_delta_high": 0.5,
+            },
+            {
+                "subject_id": "dog",
+                "source_group": "dreambooth_hard_reference",
+                "reference_regime": "hard_reference",
+                "hardness_axis": "crop",
+                "conditioning_key": "class",
+                "timestep": 50,
+                "floor_adjusted_l2": 0.6,
+                "normalized_l2": 0.8,
+                "dct_delta_low": 3.0,
+                "dct_delta_mid": 2.0,
+                "dct_delta_high": 1.0,
             },
         ]
     ).to_csv(scored_path, index=False)
@@ -39,3 +53,5 @@ def test_create_figures_writes_png_files(tmp_path):
     assert paths["control_distribution"].exists()
     assert paths["timestep_curves"].exists()
     assert paths["frequency_heatmap"].exists()
+    assert paths["ladder_timestep_heatmap"].exists()
+    assert paths["hardness_frequency_heatmap"].exists()

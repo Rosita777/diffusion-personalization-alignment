@@ -29,4 +29,6 @@ def test_build_control_manifest_creates_expected_rows(tmp_path):
     assert len(manifest) == 6
     assert set(manifest["source_group"]) == {"base_easy_control", "base_hard_control"}
     assert set(manifest["reference_regime"]) == {"easy_control", "hard_control"}
+    assert set(manifest["hardness_axis"]) == {"none", "clutter_background"}
+    assert set(manifest["variant_id"]) == {""}
     assert set(manifest["conditioning_key"]) == {"null", "class", "class_context"}

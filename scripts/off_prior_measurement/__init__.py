@@ -5,6 +5,7 @@ __all__ = [
     "dreambooth_data",
     "diffusion_backend",
     "generate_controls",
+    "hard_references",
     "measure",
     "metrics",
     "plot",

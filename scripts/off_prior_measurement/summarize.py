@@ -10,6 +10,8 @@ from scripts.off_prior_measurement.csv_io import read_csv_preserve_strings
 
 def summarize_metrics(raw_metrics_path: str | Path, output_dir: str | Path) -> dict[str, Path]:
     raw = read_csv_preserve_strings(raw_metrics_path)
+    if "hardness_axis" not in raw.columns:
+        raw["hardness_axis"] = "none"
     output_dir = Path(output_dir)
     summaries_dir = output_dir / "summaries"
     summaries_dir.mkdir(parents=True, exist_ok=True)
@@ -30,7 +32,10 @@ def summarize_metrics(raw_metrics_path: str | Path, output_dir: str | Path) -> d
     base_floor.to_csv(base_floor_path, index=False)
 
     regime_summary = (
-        scored.groupby(["source_group", "reference_regime", "conditioning_key", "timestep"], as_index=False)
+        scored.groupby(
+            ["source_group", "reference_regime", "hardness_axis", "conditioning_key", "timestep"],
+            as_index=False,
+        )
         .agg(
             mean_normalized_l2=("normalized_l2", "mean"),
             median_normalized_l2=("normalized_l2", "median"),
@@ -55,11 +60,34 @@ def summarize_metrics(raw_metrics_path: str | Path, output_dir: str | Path) -> d
     subject_summary_path = summaries_dir / "subject_summary.csv"
     subject_summary.to_csv(subject_summary_path, index=False)
 
+    ladder_base = (
+        scored.groupby(["subject_id", "conditioning_key", "reference_regime"], as_index=False)
+        .agg(mean_floor_adjusted_l2=("floor_adjusted_l2", "mean"))
+    )
+    ladder_wide = ladder_base.pivot_table(
+        index=["subject_id", "conditioning_key"],
+        columns="reference_regime",
+        values="mean_floor_adjusted_l2",
+        aggfunc="mean",
+    ).reset_index()
+    for column in ["easy_control", "standard_reference", "hard_reference", "hard_control", "roundtrip_control"]:
+        if column not in ladder_wide.columns:
+            ladder_wide[column] = float("nan")
+    ladder_wide["standard_minus_easy"] = ladder_wide["standard_reference"] - ladder_wide["easy_control"]
+    ladder_wide["hard_minus_standard"] = ladder_wide["hard_reference"] - ladder_wide["standard_reference"]
+    ladder_wide["ladder_monotonic"] = (
+        (ladder_wide["hard_reference"] > ladder_wide["standard_reference"])
+        & (ladder_wide["standard_reference"] > ladder_wide["easy_control"])
+    )
+    ladder_summary_path = summaries_dir / "ladder_summary.csv"
+    ladder_wide.to_csv(ladder_summary_path, index=False)
+
     return {
         "scored_metrics": scored_path,
         "base_floor": base_floor_path,
         "regime_summary": regime_summary_path,
         "subject_summary": subject_summary_path,
+        "ladder_summary": ladder_summary_path,
     }
 
 

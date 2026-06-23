@@ -1,0 +1,49 @@
+subjects:
+  - subject_id: dog
+    hf_subset: dog
+    class_name: dog
+    class_prompt: a photo of a dog
+    class_context_prompt: a photo of a dog in a natural scene
+    hard_control_prompt: a photo of a dog under dramatic colored lighting in a cluttered room
+  - subject_id: cat
+    hf_subset: cat
+    class_name: cat
+    class_prompt: a photo of a cat
+    class_context_prompt: a photo of a cat indoors
+    hard_control_prompt: a photo of a cat under colored nightclub lighting beside reflective metal
+  - subject_id: backpack
+    hf_subset: backpack
+    class_name: backpack
+    class_prompt: a photo of a backpack
+    class_context_prompt: a photo of a backpack on a table
+    hard_control_prompt: a photo of a backpack half cropped in a crowded market at night
+  - subject_id: vase
+    hf_subset: vase
+    class_name: vase
+    class_prompt: a photo of a vase
+    class_context_prompt: a photo of a vase in a room
+    hard_control_prompt: a photo of a vase in snow with the Eiffel Tower in the background
+  - subject_id: colorful_sneaker
+    hf_subset: colorful_sneaker
+    class_name: sneaker
+    class_prompt: a photo of a sneaker
+    class_context_prompt: a photo of a sneaker on the floor
+    hard_control_prompt: a photo of a colorful sneaker under neon light on reflective metal
+  - subject_id: shiny_sneaker
+    hf_subset: shiny_sneaker
+    class_name: sneaker
+    class_prompt: a photo of a sneaker
+    class_context_prompt: a photo of a sneaker on the floor
+    hard_control_prompt: a photo of a shiny sneaker with strong reflections in a crowded shop window
+  - subject_id: fancy_boot
+    hf_subset: fancy_boot
+    class_name: boot
+    class_prompt: a photo of a boot
+    class_context_prompt: a photo of a boot on the floor
+    hard_control_prompt: a photo of a fancy boot half cropped under red stage lighting
+  - subject_id: dog7
+    hf_subset: dog7
+    class_name: dog
+    class_prompt: a photo of a dog
+    class_context_prompt: a photo of a dog outdoors
+    hard_control_prompt: a photo of a dog with unusual fur markings under mixed colored lighting

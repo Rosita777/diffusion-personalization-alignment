@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import base64
+import http.client
 import json
 import os
 from pathlib import Path
+import time
 import urllib.request
 import zipfile
 
@@ -37,10 +39,18 @@ def download_dreambooth_subjects(config: ExperimentConfig) -> Path:
     dataset_root = config.cache_dir / "dreambooth_dataset"
     dataset_root.mkdir(parents=True, exist_ok=True)
     if config.dataset_source == "github_api":
-        _download_dreambooth_subjects_from_github_api(dataset_root / "dataset", config.subjects)
+        _download_dreambooth_subjects_from_github_api(
+            dataset_root / "dataset",
+            config.subjects,
+            image_limit=config.reference_images_per_subject,
+        )
         return dataset_root / "dataset"
     if config.dataset_source == "github":
-        _download_dreambooth_subjects_from_github(dataset_root / "dataset", config.subjects)
+        _download_dreambooth_subjects_from_github(
+            dataset_root / "dataset",
+            config.subjects,
+            image_limit=config.reference_images_per_subject,
+        )
         return dataset_root / "dataset"
     if config.dataset_source != "huggingface":
         raise ValueError(f"Unsupported dataset_source: {config.dataset_source}")
@@ -55,13 +65,21 @@ def download_dreambooth_subjects(config: ExperimentConfig) -> Path:
         if config.dataset_repo != "google/dreambooth":
             raise
         print(f"Hugging Face DreamBooth download failed; falling back to GitHub: {exc}")
-        _download_dreambooth_subjects_from_github(dataset_root / "dataset", config.subjects)
+        _download_dreambooth_subjects_from_github(
+            dataset_root / "dataset",
+            config.subjects,
+            image_limit=config.reference_images_per_subject,
+        )
     return dataset_root / "dataset"
 
 
-def _download_dreambooth_subjects_from_github(dataset_root: Path, subjects: list[SubjectSpec]) -> None:
+def _download_dreambooth_subjects_from_github(
+    dataset_root: Path,
+    subjects: list[SubjectSpec],
+    image_limit: int | None = None,
+) -> None:
     try:
-        _download_dreambooth_subjects_from_github_zip(dataset_root, subjects)
+        _download_dreambooth_subjects_from_github_zip(dataset_root, subjects, image_limit=image_limit)
         return
     except Exception as exc:
         print(f"GitHub zip DreamBooth download failed; falling back to GitHub API files: {exc}")
@@ -72,10 +90,9 @@ def _download_dreambooth_subjects_from_github(dataset_root: Path, subjects: list
         api_url = f"{GITHUB_DREAMBOOTH_API}/{subject.hf_subset}?ref=main"
         with _open_url(api_url, timeout=60) as response:
             entries = json.loads(response.read().decode("utf-8"))
-        for entry in entries:
+        image_entries = _limited_image_entries(entries, image_limit)
+        for entry in image_entries:
             name = str(entry.get("name", ""))
-            if entry.get("type") != "file" or Path(name).suffix.lower() not in IMAGE_SUFFIXES:
-                continue
             destination = subject_dir / name
             if destination.exists() and destination.stat().st_size > 0:
                 continue
@@ -86,17 +103,20 @@ def _download_dreambooth_subjects_from_github(dataset_root: Path, subjects: list
                 destination.write_bytes(response.read())
 
 
-def _download_dreambooth_subjects_from_github_api(dataset_root: Path, subjects: list[SubjectSpec]) -> None:
+def _download_dreambooth_subjects_from_github_api(
+    dataset_root: Path,
+    subjects: list[SubjectSpec],
+    image_limit: int | None = None,
+) -> None:
     for subject in subjects:
         subject_dir = dataset_root / subject.hf_subset
         subject_dir.mkdir(parents=True, exist_ok=True)
         api_url = f"{GITHUB_DREAMBOOTH_API}/{subject.hf_subset}?ref=main"
         with _open_url(api_url, timeout=60) as response:
             entries = json.loads(response.read().decode("utf-8"))
-        for entry in entries:
+        image_entries = _limited_image_entries(entries, image_limit)
+        for entry in image_entries:
             name = str(entry.get("name", ""))
-            if entry.get("type") != "file" or Path(name).suffix.lower() not in IMAGE_SUFFIXES:
-                continue
             destination = subject_dir / name
             if destination.exists() and destination.stat().st_size > 0:
                 continue
@@ -105,12 +125,55 @@ def _download_dreambooth_subjects_from_github_api(dataset_root: Path, subjects: 
                 continue
             with _open_url(str(file_url), timeout=60) as response:
                 payload = json.loads(response.read().decode("utf-8"))
-            if payload.get("encoding") != "base64" or not payload.get("content"):
-                raise ValueError(f"GitHub API did not return base64 content for {subject.hf_subset}/{name}")
-            destination.write_bytes(base64.b64decode(str(payload["content"]).replace("\n", "")))
+            content = _github_api_file_content(payload, subject.hf_subset, name)
+            destination.write_bytes(content)
 
 
-def _download_dreambooth_subjects_from_github_zip(dataset_root: Path, subjects: list[SubjectSpec]) -> None:
+def _limited_image_entries(entries: list[dict[str, object]], image_limit: int | None) -> list[dict[str, object]]:
+    image_entries = sorted(
+        (
+            entry
+            for entry in entries
+            if entry.get("type") == "file" and Path(str(entry.get("name", ""))).suffix.lower() in IMAGE_SUFFIXES
+        ),
+        key=lambda entry: str(entry.get("name", "")),
+    )
+    if image_limit is None:
+        return image_entries
+    return image_entries[:image_limit]
+
+
+def _github_api_file_content(payload: dict[str, object], subset: str, name: str) -> bytes:
+    if payload.get("encoding") == "base64" and payload.get("content"):
+        return base64.b64decode(str(payload["content"]).replace("\n", ""))
+    git_url = payload.get("git_url")
+    if git_url:
+        blob = _read_json_url(str(git_url), timeout=120)
+        if blob.get("encoding") == "base64" and blob.get("content"):
+            return base64.b64decode(str(blob["content"]).replace("\n", ""))
+    raise ValueError(f"GitHub API did not return base64 content for {subset}/{name}")
+
+
+def _read_json_url(url: str, timeout: int, attempts: int = 3) -> dict[str, object]:
+    last_error: Exception | None = None
+    for attempt in range(attempts):
+        try:
+            with _open_url(url, timeout=timeout) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except http.client.IncompleteRead as exc:
+            last_error = exc
+            if attempt + 1 < attempts:
+                time.sleep(1.0)
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError(f"Unable to read JSON URL: {url}")
+
+
+def _download_dreambooth_subjects_from_github_zip(
+    dataset_root: Path,
+    subjects: list[SubjectSpec],
+    image_limit: int | None = None,
+) -> None:
     dataset_root.mkdir(parents=True, exist_ok=True)
     zip_path = dataset_root.parent / "dreambooth_github_main.zip"
     if not zip_path.exists() or zip_path.stat().st_size == 0:
@@ -128,11 +191,13 @@ def _download_dreambooth_subjects_from_github_zip(dataset_root: Path, subjects: 
         names = archive.namelist()
         for subject in subjects:
             prefix = f"dreambooth-main/dataset/{subject.hf_subset}/"
-            members = [
+            members = sorted(
                 name
                 for name in names
                 if name.startswith(prefix) and Path(name).suffix.lower() in IMAGE_SUFFIXES
-            ]
+            )
+            if image_limit is not None:
+                members = members[:image_limit]
             if not members:
                 raise FileNotFoundError(f"No GitHub zip images found for subject: {subject.hf_subset}")
             subject_dir = dataset_root / subject.hf_subset
@@ -154,11 +219,13 @@ def _open_url(url: str, timeout: int, accept: str = "application/vnd.github+json
     return urllib.request.urlopen(request, timeout=timeout)
 
 
-def _iter_subject_images(dataset_root: Path, subject: SubjectSpec) -> list[Path]:
+def _iter_subject_images(dataset_root: Path, subject: SubjectSpec, image_limit: int | None = None) -> list[Path]:
     subject_dir = dataset_root / subject.hf_subset
     if not subject_dir.exists():
         raise FileNotFoundError(f"DreamBooth subject directory not found: {subject_dir}")
     images = sorted(path for path in subject_dir.iterdir() if path.suffix.lower() in IMAGE_SUFFIXES)
+    if image_limit is not None:
+        images = images[:image_limit]
     if not images:
         raise FileNotFoundError(f"No images found for subject: {subject.subject_id}")
     return images
@@ -168,10 +235,11 @@ def build_reference_manifest(
     dataset_root: Path,
     subjects: list[SubjectSpec],
     conditionings: list[str],
+    image_limit: int | None = None,
 ) -> pd.DataFrame:
     rows: list[dict[str, str]] = []
     for subject in subjects:
-        for image_path in _iter_subject_images(dataset_root, subject):
+        for image_path in _iter_subject_images(dataset_root, subject, image_limit=image_limit):
             image_id = image_path.stem
             for conditioning_key in conditionings:
                 rows.append(
@@ -180,7 +248,11 @@ def build_reference_manifest(
                         "image_id": image_id,
                         "image_path": str(image_path),
                         "source_group": "dreambooth_reference",
-                        "reference_regime": "standard",
+                        "reference_regime": "standard_reference",
+                        "hardness_axis": "none",
+                        "source_standard_image": "",
+                        "variant_id": "",
+                        "transform_parameters": "{}",
                         "class_name": subject.class_name,
                         "class_prompt": subject.class_prompt,
                         "class_context_prompt": subject.class_context_prompt,
@@ -193,23 +265,45 @@ def build_reference_manifest(
 
 def write_combined_manifest(config_path: str | Path) -> Path:
     from scripts.off_prior_measurement.generate_controls import build_control_manifest
+    from scripts.off_prior_measurement.hard_references import build_hard_reference_manifest
     from scripts.off_prior_measurement.roundtrip_controls import build_roundtrip_manifest
 
     config = load_config(config_path)
     dataset_root = download_dreambooth_subjects(config)
-    reference = build_reference_manifest(dataset_root, config.subjects, config.conditionings)
+    reference = build_reference_manifest(
+        dataset_root,
+        config.subjects,
+        config.conditionings,
+        image_limit=config.reference_images_per_subject,
+    )
 
     manifest_dir = config.output_dir / "manifests"
     manifest_dir.mkdir(parents=True, exist_ok=True)
     reference_manifest_path = manifest_dir / "reference_manifest.csv"
     reference.to_csv(reference_manifest_path, index=False)
 
+    hard_reference_root = config.cache_dir / "hard_references"
+    hard_reference = build_hard_reference_manifest(
+        reference_manifest_path=reference_manifest_path,
+        hard_root=hard_reference_root,
+        variants=config.hard_reference_variants or [],
+    )
+    if config.hard_reference_limit_per_subject is not None and not hard_reference.empty:
+        hard_reference = (
+            hard_reference.sort_values(["subject_id", "image_id", "variant_id", "conditioning_key"])
+            .groupby(["subject_id", "variant_id", "conditioning_key"], as_index=False)
+            .head(config.hard_reference_limit_per_subject)
+            .reset_index(drop=True)
+        )
+    hard_reference_manifest_path = manifest_dir / "hard_reference_manifest.csv"
+    hard_reference.to_csv(hard_reference_manifest_path, index=False)
+
     generated_root = config.cache_dir / "generated_controls"
     controls = build_control_manifest(config.subjects, generated_root, config.conditionings)
     roundtrip_root = config.cache_dir / "vae_roundtrip_controls"
     roundtrip = build_roundtrip_manifest(reference_manifest_path, roundtrip_root)
 
-    combined = pd.concat([reference, controls, roundtrip], ignore_index=True)
+    combined = pd.concat([reference, hard_reference, controls, roundtrip], ignore_index=True)
     path = manifest_dir / "combined_manifest.csv"
     combined.to_csv(path, index=False)
     return path

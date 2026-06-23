@@ -6,6 +6,7 @@ from pathlib import Path
 import pandas as pd
 
 from scripts.off_prior_measurement.config import load_config
+from scripts.off_prior_measurement.csv_io import read_csv_preserve_strings
 
 
 def torch_dtype(name: str):
@@ -55,7 +56,7 @@ def vae_roundtrip_image(
 
 
 def build_roundtrip_manifest(reference_manifest_path: str | Path, roundtrip_root: str | Path) -> pd.DataFrame:
-    reference = pd.read_csv(reference_manifest_path)
+    reference = read_csv_preserve_strings(reference_manifest_path)
     roundtrip_root = Path(roundtrip_root)
     rows = []
     for row in reference.to_dict("records"):
@@ -63,6 +64,10 @@ def build_roundtrip_manifest(reference_manifest_path: str | Path, roundtrip_root
         new_row["image_path"] = str(roundtrip_root / row["subject_id"] / f"{row['image_id']}.png")
         new_row["source_group"] = "vae_roundtrip_control"
         new_row["reference_regime"] = "roundtrip_control"
+        new_row["hardness_axis"] = "none"
+        new_row["source_standard_image"] = row["image_path"]
+        new_row["variant_id"] = ""
+        new_row["transform_parameters"] = "{}"
         rows.append(new_row)
     return pd.DataFrame(rows)
 
@@ -72,7 +77,7 @@ def generate_roundtrip_controls(config_path: str | Path, reference_manifest_path
     from diffusers import AutoencoderKL
 
     config = load_config(config_path)
-    reference = pd.read_csv(reference_manifest_path)
+    reference = read_csv_preserve_strings(reference_manifest_path)
     roundtrip_root = config.cache_dir / "vae_roundtrip_controls"
     device = torch.device(config.device)
     dtype = torch_dtype(config.dtype)
