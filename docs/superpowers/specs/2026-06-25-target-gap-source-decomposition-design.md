@@ -2,7 +2,7 @@
 
 Date: 2026-06-25
 
-Status: design spec awaiting user review before implementation planning.
+Status: implementation prepared. Real smoke execution is blocked until local ordinary-real control images are provided.
 
 ## Purpose
 
@@ -29,6 +29,20 @@ ordinary real-image domain gap, or DreamBooth subject-specific mismatch?
 ```
 
 The goal is to recover a scientifically interpretable measurement before designing DADT target correction.
+
+## Implementation Status
+
+The Stage 1.4 code path is implemented under `scripts/off_prior_measurement/`:
+
+```text
+source_decomp_manifest.py
+source_decomp_measure.py
+source_decomp_summarize.py
+source_decomp_plot.py
+source_decomp_conclusion.py
+```
+
+The smoke config is `configs/off_prior_measurement_v0/source_decomp_v1.yaml`, and the ordinary-real manifest contract is `data/manifests/ordinary_real_controls_v1.yaml`. The current manifest paths are local placeholders; the pipeline stops with a `FileNotFoundError` naming missing ordinary-real images instead of silently reusing personalization references as controls.
 
 ## Revised Hypothesis
 

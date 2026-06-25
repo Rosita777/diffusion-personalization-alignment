@@ -1,6 +1,6 @@
 # Stage 1.4 Target-Gap Source Decomposition Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox syntax for tracking.
 
 **Goal:** Build a Stage 1.4 pipeline that separates VAE/projection artifacts, ordinary real-image domain gap, and DreamBooth subject-specific target gap before any personalization fine-tuning.
 
@@ -82,7 +82,7 @@ experiments/off_prior_measurement_v0/source_decomp_v1/conclusion.md
 - Create: `configs/off_prior_measurement_v0/source_decomp_v1.yaml`
 - Create: `data/manifests/ordinary_real_controls_v1.yaml`
 
-- [ ] **Step 1: Write the failing config test**
+- [x] **Step 1: Write the failing config test**
 
 Append this test to `tests/off_prior_measurement/test_config.py`:
 
@@ -149,7 +149,7 @@ source_decomp_save_debug_tensors: false
     assert config.source_decomp_save_debug_tensors is False
 ```
 
-- [ ] **Step 2: Run the new test and verify RED**
+- [x] **Step 2: Run the new test and verify RED**
 
 Run:
 
@@ -159,7 +159,7 @@ Run:
 
 Expected: failure because `ExperimentConfig` has no `ordinary_real_manifest` field.
 
-- [ ] **Step 3: Extend config dataclass and loader**
+- [x] **Step 3: Extend config dataclass and loader**
 
 Add these fields to `ExperimentConfig`:
 
@@ -187,7 +187,7 @@ else int(source_decomp_images_per_class),
 source_decomp_save_debug_tensors=source_decomp_save_debug_tensors,
 ```
 
-- [ ] **Step 4: Add smoke config and ordinary-real manifest template**
+- [x] **Step 4: Add smoke config and ordinary-real manifest template**
 
 Create `configs/off_prior_measurement_v0/source_decomp_v1.yaml`:
 
@@ -242,7 +242,7 @@ ordinary_real_controls:
     source_license_note: user-provided local image, not committed
 ```
 
-- [ ] **Step 5: Run config tests and commit**
+- [x] **Step 5: Run config tests and commit**
 
 Run:
 
@@ -266,7 +266,7 @@ git commit -m "feat: configure source decomposition"
 - Modify: `scripts/off_prior_measurement/metrics.py`
 - Modify: `tests/off_prior_measurement/test_metrics.py`
 
-- [ ] **Step 1: Write failing projection metric tests**
+- [x] **Step 1: Write failing projection metric tests**
 
 Append to `tests/off_prior_measurement/test_metrics.py`:
 
@@ -300,7 +300,7 @@ def test_residual_projection_metrics_keeps_orthogonal_clean_residual():
     assert round(metrics["artifact_cosine"], 6) == 0.0
 ```
 
-- [ ] **Step 2: Run tests and verify RED**
+- [x] **Step 2: Run tests and verify RED**
 
 Run:
 
@@ -310,7 +310,7 @@ Run:
 
 Expected: import failure for `residual_projection_metrics`.
 
-- [ ] **Step 3: Implement projection metrics**
+- [x] **Step 3: Implement projection metrics**
 
 Add to `scripts/off_prior_measurement/metrics.py`:
 
@@ -342,7 +342,7 @@ def residual_projection_metrics(v_ref, v_base, rt_v_ref, rt_v_base) -> dict[str,
     }
 ```
 
-- [ ] **Step 4: Run tests and commit**
+- [x] **Step 4: Run tests and commit**
 
 Run:
 
@@ -366,7 +366,7 @@ git commit -m "feat: add residual projection metrics"
 - Create: `scripts/off_prior_measurement/source_decomp_manifest.py`
 - Create: `tests/off_prior_measurement/test_source_decomp_manifest.py`
 
-- [ ] **Step 1: Write failing manifest tests**
+- [x] **Step 1: Write failing manifest tests**
 
 Create `tests/off_prior_measurement/test_source_decomp_manifest.py`:
 
@@ -448,7 +448,7 @@ def test_build_source_decomp_manifest_rejects_missing_ordinary_real_controls(tmp
         build_source_decomp_manifest(reference_path, controls_path, ordinary_path, tmp_path / "roundtrip")
 ```
 
-- [ ] **Step 2: Run tests and verify RED**
+- [x] **Step 2: Run tests and verify RED**
 
 Run:
 
@@ -458,7 +458,7 @@ Run:
 
 Expected: import failure for `source_decomp_manifest`.
 
-- [ ] **Step 3: Implement manifest builder**
+- [x] **Step 3: Implement manifest builder**
 
 Create `scripts/off_prior_measurement/source_decomp_manifest.py` with:
 
@@ -547,7 +547,7 @@ def build_source_decomp_manifest(
     return combined[REQUIRED_COLUMNS]
 ```
 
-- [ ] **Step 4: Add CLI wrapper**
+- [x] **Step 4: Add CLI wrapper**
 
 Add to the same file:
 
@@ -576,7 +576,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 5: Run tests and commit**
+- [x] **Step 5: Run tests and commit**
 
 Run:
 
@@ -600,7 +600,7 @@ git commit -m "feat: build source decomposition manifests"
 - Create: `scripts/off_prior_measurement/source_decomp_measure.py`
 - Create: `tests/off_prior_measurement/test_source_decomp_measure.py`
 
-- [ ] **Step 1: Write failing measurement test with fake backend**
+- [x] **Step 1: Write failing measurement test with fake backend**
 
 Create `tests/off_prior_measurement/test_source_decomp_measure.py`:
 
@@ -668,7 +668,7 @@ def test_run_source_decomp_measurement_writes_projection_metrics(tmp_path):
     assert rows.iloc[0]["source_group"] == "dreambooth_reference"
 ```
 
-- [ ] **Step 2: Run test and verify RED**
+- [x] **Step 2: Run test and verify RED**
 
 Run:
 
@@ -678,7 +678,7 @@ Run:
 
 Expected: import failure for `source_decomp_measure`.
 
-- [ ] **Step 3: Implement measurement function**
+- [x] **Step 3: Implement measurement function**
 
 Create `scripts/off_prior_measurement/source_decomp_measure.py` with:
 
@@ -752,7 +752,7 @@ def run_source_decomp_measurement(
     return path
 ```
 
-- [ ] **Step 4: Add CLI wrapper**
+- [x] **Step 4: Add CLI wrapper**
 
 Add:
 
@@ -778,7 +778,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 5: Run tests and commit**
+- [x] **Step 5: Run tests and commit**
 
 Run:
 
@@ -802,7 +802,7 @@ git commit -m "feat: measure source decomposition residuals"
 - Create: `scripts/off_prior_measurement/source_decomp_summarize.py`
 - Create: `tests/off_prior_measurement/test_source_decomp_summarize.py`
 
-- [ ] **Step 1: Write failing summary test**
+- [x] **Step 1: Write failing summary test**
 
 Create `tests/off_prior_measurement/test_source_decomp_summarize.py`:
 
@@ -848,7 +848,7 @@ def test_summarize_source_decomp_computes_gap_columns(tmp_path):
     assert round(row["natural_hard_gap"], 6) == 0.10
 ```
 
-- [ ] **Step 2: Run test and verify RED**
+- [x] **Step 2: Run test and verify RED**
 
 Run:
 
@@ -858,7 +858,7 @@ Run:
 
 Expected: import failure for `source_decomp_summarize`.
 
-- [ ] **Step 3: Implement summaries**
+- [x] **Step 3: Implement summaries**
 
 Create `scripts/off_prior_measurement/source_decomp_summarize.py` with `summarize_source_decomp(raw_metrics_path, output_dir) -> dict[str, Path]` that writes:
 
@@ -894,7 +894,7 @@ wide["subject_specific_gap"] = wide["dreambooth_reference"] - wide["ordinary_rea
 wide["natural_hard_gap"] = wide["natural_hard_reference"] - wide["dreambooth_reference"]
 ```
 
-- [ ] **Step 4: Add CLI wrapper, run tests, commit**
+- [x] **Step 4: Add CLI wrapper, run tests, commit**
 
 Run:
 
@@ -918,7 +918,7 @@ git commit -m "feat: summarize source decomposition gaps"
 - Create: `tests/off_prior_measurement/test_source_decomp_plot.py`
 - Create: `tests/off_prior_measurement/test_source_decomp_conclusion.py`
 
-- [ ] **Step 1: Write failing plot test**
+- [x] **Step 1: Write failing plot test**
 
 Create a tiny `source_group_summary.csv`, `source_gap_summary.csv`, and `timestep_frequency_summary.csv`. Assert that `create_source_decomp_figures(summary_dir, figures_dir)` writes:
 
@@ -928,7 +928,7 @@ artifact_fraction_by_source.png
 clean_timestep_curves.png
 ```
 
-- [ ] **Step 2: Write failing conclusion tests**
+- [x] **Step 2: Write failing conclusion tests**
 
 Create two source-gap summaries:
 
@@ -949,7 +949,7 @@ mean artifact fraction >= 0.75
 
 Assert conclusion text contains `Go / pivot decision: Go` or `Go / pivot decision: Pivot`.
 
-- [ ] **Step 3: Implement plotting**
+- [x] **Step 3: Implement plotting**
 
 Create `source_decomp_plot.py` using matplotlib Agg backend and `read_csv_preserve_strings`. Keep the plotting API:
 
@@ -958,7 +958,7 @@ def create_source_decomp_figures(summary_dir: str | Path, figures_dir: str | Pat
     ...
 ```
 
-- [ ] **Step 4: Implement conclusion**
+- [x] **Step 4: Implement conclusion**
 
 Create `source_decomp_conclusion.py`:
 
@@ -978,7 +978,7 @@ go = (
 )
 ```
 
-- [ ] **Step 5: Run tests and commit**
+- [x] **Step 5: Run tests and commit**
 
 Run:
 
@@ -1001,7 +1001,7 @@ git commit -m "feat: report source decomposition decision"
 - Modify: `README.md`
 - Modify: `docs/superpowers/specs/2026-06-25-target-gap-source-decomposition-design.md`
 
-- [ ] **Step 1: Run full lightweight test suite**
+- [x] **Step 1: Run full lightweight test suite**
 
 Run:
 
@@ -1011,7 +1011,7 @@ Run:
 
 Expected: all tests pass.
 
-- [ ] **Step 2: Run manifest validation dry run**
+- [x] **Step 2: Run manifest validation dry run**
 
 Run:
 
@@ -1045,7 +1045,7 @@ source_decomp_manifest.csv exists and includes base_generated_control,
 ordinary_real_control, dreambooth_reference
 ```
 
-- [ ] **Step 3: Write experiment README**
+- [x] **Step 3: Write experiment README**
 
 Create `experiments/off_prior_measurement_v0/source_decomp_v1/README.md` with:
 
@@ -1071,7 +1071,7 @@ $PYTHON -m scripts.off_prior_measurement.source_decomp_conclusion --experiment-d
 ```
 ```
 
-- [ ] **Step 4: Update docs with implementation status**
+- [x] **Step 4: Update docs with implementation status**
 
 Update the Stage 1.4 spec status:
 
@@ -1081,7 +1081,7 @@ Status: implementation prepared. Real smoke run is blocked until local ordinary-
 
 Update `README.md` immediate next step to mention local ordinary-real controls if the dry run is blocked.
 
-- [ ] **Step 5: Commit and backup**
+- [x] **Step 5: Commit and backup**
 
 Commit:
 
