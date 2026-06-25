@@ -15,7 +15,7 @@ Completed run note, 2026-06-25:
 - Mean clean standard-reference residual: -0.0067.
 - Mean standard-reference roundtrip attribution ratio: 1.1502.
 - Go / No-Go result: No-Go.
-- Next research action: revise the measurement itself before Stage 2, especially by separating VAE reconstruction artifacts from UNet target residuals and by using more natural hard-reference construction.
+- Next research action: Stage 1.4 target-gap source decomposition, specified in `docs/superpowers/specs/2026-06-25-target-gap-source-decomposition-design.md`.
 
 ## Purpose
 
