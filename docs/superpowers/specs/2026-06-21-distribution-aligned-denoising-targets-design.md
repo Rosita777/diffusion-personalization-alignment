@@ -2,7 +2,7 @@
 
 Date: 2026-06-21
 
-Status: v0 research design plus Stage 1 measurement code. The first SD 1.5/DreamBooth smoke test produced a No-Go on the lightweight subset. Stage 1 v2 also produced a No-Go, with VAE roundtrip controls identified as a major confound. Stage 1.3 is specified in `docs/superpowers/specs/2026-06-23-roundtrip-confound-clean-offpriorness-design.md`.
+Status: v0 research design plus Stage 1 measurement code. The first SD 1.5/DreamBooth smoke test produced a No-Go on the lightweight subset. Stage 1 v2 also produced a No-Go, with VAE roundtrip controls identified as a major confound. Stage 1.3 confirmed the confound: the raw standard-reference signal disappears after roundtrip subtraction. The next research step is to revise the measurement, not to proceed to personalization fine-tuning.
 
 ## Purpose
 

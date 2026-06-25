@@ -2,7 +2,20 @@
 
 Date: 2026-06-23
 
-Status: design spec awaiting user review before implementation planning.
+Status: implemented and run. The completed Stage 1.3 diagnostic produced a No-Go; the raw v2 standard-reference signal did not survive VAE roundtrip subtraction.
+
+Completed run note, 2026-06-25:
+
+- Experiment directory: `experiments/off_prior_measurement_v0/ladder_v2_clean/`.
+- Source experiment: `experiments/off_prior_measurement_v0/ladder_v2/`.
+- Selected conditioning: `class`.
+- Clean standard-reference positive subjects: 0 of 8.
+- Clean hard-reference not below standard subjects: 0 of 8.
+- Mean raw standard-reference residual: 0.0117.
+- Mean clean standard-reference residual: -0.0067.
+- Mean standard-reference roundtrip attribution ratio: 1.1502.
+- Go / No-Go result: No-Go.
+- Next research action: revise the measurement itself before Stage 2, especially by separating VAE reconstruction artifacts from UNet target residuals and by using more natural hard-reference construction.
 
 ## Purpose
 

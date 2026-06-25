@@ -6,7 +6,7 @@ Core idea: prevent personalization forgetting by constructing denoising targets 
 
 ## Current Status
 
-Current stage: Stage 1 off-priorness measurement pipeline implemented and run for two DreamBooth smoke tests. The first SD 1.5/DreamBooth smoke run is complete under `experiments/off_prior_measurement_v0/smoke_test/` and produced a No-Go under the 4-of-5 subject rule. Stage 1 v2 prior-compatibility ladder is complete under `experiments/off_prior_measurement_v0/ladder_v2/` and also produced a No-Go under the ladder criteria.
+Current stage: Stage 1 off-priorness measurement pipeline implemented and run for two DreamBooth smoke tests plus a Stage 1.3 clean diagnostic. The first SD 1.5/DreamBooth smoke run is complete under `experiments/off_prior_measurement_v0/smoke_test/` and produced a No-Go under the 4-of-5 subject rule. Stage 1 v2 prior-compatibility ladder is complete under `experiments/off_prior_measurement_v0/ladder_v2/` and also produced a No-Go. Stage 1.3 roundtrip-confound diagnosis is complete under `experiments/off_prior_measurement_v0/ladder_v2_clean/` and produced a stronger No-Go: the raw standard-reference signal does not survive VAE roundtrip subtraction.
 
 Current design inputs:
 
@@ -16,10 +16,11 @@ docs/superpowers/specs/2026-06-22-prior-compatibility-ladder-design.md
 docs/superpowers/specs/2026-06-23-roundtrip-confound-clean-offpriorness-design.md
 docs/superpowers/plans/2026-06-22-stage-1-off-priorness-measurement.md
 docs/superpowers/plans/2026-06-22-stage-1-v2-prior-compatibility-ladder.md
+docs/superpowers/plans/2026-06-25-stage-1-3-clean-offpriorness.md
 notes/2026-06-22-dataset-survey.md
 ```
 
-Immediate next step: Stage 1.3 roundtrip-confound diagnosis. Reuse the completed v2 outputs to compute clean off-priorness scores that subtract VAE roundtrip artifacts before deciding whether Stage 2 personalization fine-tuning is scientifically justified.
+Immediate next step: revise the off-priorness measurement itself before any personalization fine-tuning. Stage 1.3 found clean standard-reference positives for 0 of 8 subjects and mean clean standard-reference residual `-0.0067`, with roundtrip attribution ratio `1.1502`; the current metric is too confounded for Stage 2.
 
 ## Current Research Question
 
@@ -48,7 +49,8 @@ Use DreamBooth / DreamBench first because it is the common benchmark for DreamBo
 
 - Stage 1 smoke test: 5 DreamBooth subjects with easy / standard / hard reference regimes. The runnable subset was dog, cat, backpack, clock, and vase.
 - Stage 1 v2 ladder smoke test: 8 DreamBooth subjects with easy controls, standard references, deterministic hard-reference variants, hard controls, and VAE roundtrip controls. The completed subset is dog, cat, backpack, vase, colorful_sneaker, shiny_sneaker, fancy_boot, and dog7. It uses one reference image per subject because GitHub-hosted large DreamBooth files were unstable in this environment.
-- Future paper-scale measurement: all 30 DreamBooth subjects after the off-priorness metric and controls are revised.
+- Stage 1.3 clean diagnostic: roundtrip-subtracted analysis of v2 under `ladder_v2_clean`, producing No-Go because the raw standard-reference signal disappears after subtracting VAE roundtrip artifacts.
+- Future paper-scale measurement: all 30 DreamBooth subjects only after the off-priorness metric and controls are revised.
 - Later expansion: CustomConcept101 or DreamBench++ after the off-priorness signal is validated.
 
 The hard reference regime should be documented as a controlled stress test, not hidden example selection.
