@@ -2,7 +2,7 @@
 
 Date: 2026-06-25
 
-Status: implementation prepared. Real smoke execution is blocked until local ordinary-real control images are provided.
+Status: executed. The Stage 1.4 smoke run produced a Pivot decision, the Stage 1.5A failure-diagnosis rerun produced a stronger Pivot after adding better ordinary-real controls and multiple DreamBooth references, the Stage 1.5B prompt-matched control diagnosis found that coarse class prompts are not the main cause of the remaining ordinary-real gap, the Stage 1.5C metric ablation found that prompt matching mostly reduces the raw / artifact-aligned gap rather than the projection-cleaned gap, and the Stage 1.5D fine-grained diagnosis found only a weak low-frequency late-timestep clue.
 
 ## Purpose
 
@@ -42,7 +42,174 @@ source_decomp_plot.py
 source_decomp_conclusion.py
 ```
 
-The smoke config is `configs/off_prior_measurement_v0/source_decomp_v1.yaml`, and the ordinary-real manifest contract is `data/manifests/ordinary_real_controls_v1.yaml`. The current manifest paths are local placeholders; the pipeline stops with a `FileNotFoundError` naming missing ordinary-real images instead of silently reusing personalization references as controls.
+The smoke config is `configs/off_prior_measurement_v0/source_decomp_v1.yaml`, and the ordinary-real manifest is `data/manifests/ordinary_real_controls_v1.yaml`. The ordinary-real controls use four COCO 2017 validation images cached locally under `data/cache/off_prior_measurement_v0/ordinary_real_controls/coco2017/`. Raw images are not committed.
+
+The Stage 1.5A diagnosis config is `configs/off_prior_measurement_v0/source_decomp_stage15a.yaml`, and the expanded ordinary-real manifest is `data/manifests/ordinary_real_controls_stage15a.yaml`. It uses four COCO ordinary-real regimes per class and all locally available DreamBooth references for dog, cat, backpack, and vase. Results are recorded under `experiments/off_prior_measurement_v0/source_decomp_stage15a/`.
+
+The Stage 1.5B prompt-matched diagnosis config is `configs/off_prior_measurement_v0/source_decomp_stage15b_prompt_matched.yaml`, and the prompt-matched ordinary-real manifest is `data/manifests/ordinary_real_controls_stage15b_prompt_matched.yaml`. It compares ordinary-real controls with base SD 1.5 images generated from image-specific prompts. Results are recorded under `experiments/off_prior_measurement_v0/source_decomp_stage15b_prompt_matched/`.
+
+The Stage 1.5C metric ablation reuses Stage 1.5A and Stage 1.5B raw measurements through `scripts/off_prior_measurement/source_decomp_metric_ablation.py`. It compares `raw_norm`, `projected_artifact_norm = raw_norm * artifact_fraction`, and `clean_norm`. Results are recorded under `experiments/off_prior_measurement_v0/source_decomp_stage15c_metric_ablation/`.
+
+The Stage 1.5D fine-grained diagnosis reuses Stage 1.5A and Stage 1.5B raw measurements through `scripts/off_prior_measurement/source_decomp_fine_grained.py`. It slices the gap by timestep and latent DCT clean-frequency bands. Results are recorded under `experiments/off_prior_measurement_v0/source_decomp_stage15d_fine_grained/`.
+
+## Execution Result
+
+The executed Stage 1.4 smoke run is recorded under:
+
+```text
+experiments/off_prior_measurement_v0/source_decomp_v1/
+```
+
+The manifest contains dog, cat, backpack, and vase only, because those are the classes with ordinary-real controls. Measurement was run with 5 timesteps and 5 noise seeds, producing 1975 raw rows.
+
+Selected conditioning: `class`.
+
+```text
+class      real_domain_gap  subject_specific_gap
+backpack          0.017963             -0.009677
+cat               0.008754             -0.012851
+dog               0.010689              0.117667
+vase              0.016680             -0.006093
+```
+
+Go / Pivot summary:
+
+```text
+subject-specific positive classes: 1 of 4
+mean real-domain gap: 0.0135
+mean subject-specific gap: 0.0223
+mean DreamBooth artifact fraction: 0.8961
+decision: Pivot
+```
+
+Interpretation: the positive mean subject-specific gap is not robust because it is driven by dog. Backpack, cat, and vase are below ordinary real controls after projection cleaning. Artifact fraction remains high, so the current measurement should not be used to justify Stage 2 personalization fine-tuning.
+
+## Stage 1.5A Failure-Diagnosis Result
+
+The follow-up run is recorded under:
+
+```text
+experiments/off_prior_measurement_v0/source_decomp_stage15a/
+```
+
+Stage 1.5A tests whether the Stage 1.4 result was caused by weak matching or too few reference images. It expands ordinary-real controls to four regimes per class and uses all locally available DreamBooth references. Measurement was run with 5 timesteps and 5 noise seeds, producing 1450 raw rows.
+
+Selected conditioning: `class`.
+
+```text
+class      real_domain_gap  subject_specific_gap
+backpack          0.016128             -0.010552
+cat               0.010957             -0.010829
+dog               0.012643             -0.009571
+vase              0.015867             -0.003702
+```
+
+Go / Pivot summary:
+
+```text
+subject-specific positive classes: 0 of 4
+mean real-domain gap: 0.0139
+mean subject-specific gap: -0.0087
+mean DreamBooth artifact fraction: 0.9809
+decision: Pivot
+```
+
+Interpretation: better data matching did not rescue the personalization-specific target-gap story. Under the current clean residual metric, ordinary real images are more off-prior than DreamBooth references for all four smoke classes. The Stage 1.4 dog signal should be treated as unstable, and the next step should be metric redesign or a paper-story pivot rather than personalization fine-tuning.
+
+## Stage 1.5B Prompt-Matched Control Result
+
+The prompt-matched follow-up run is recorded under:
+
+```text
+experiments/off_prior_measurement_v0/source_decomp_stage15b_prompt_matched/
+```
+
+Stage 1.5B tests whether Stage 1.5A failed mainly because ordinary-real images were conditioned with coarse class prompts. It does not include DreamBooth reference rows, so it should be read only as a base-generated versus ordinary-real control-gap diagnosis.
+
+Selected conditioning: `prompt_matched`.
+
+```text
+class      class-only gap  prompt-matched gap  delta
+backpack        0.016128            0.015855  -0.000273
+cat             0.010957            0.008615  -0.002343
+dog             0.012643            0.012796   0.000153
+vase            0.015867            0.014554  -0.001313
+mean            0.013899            0.012955  -0.000944
+```
+
+Interpretation: prompt matching reduces the mean real-domain gap by only about 6.8%. The gap remains positive for all four smoke classes. Coarse class prompts contribute a little, but they do not explain the failed Stage 1.5A signal. The next diagnosis should target the residual metric and projection pipeline itself rather than only improving text prompts.
+
+## Stage 1.5C Metric-Ablation Result
+
+The metric ablation is recorded under:
+
+```text
+experiments/off_prior_measurement_v0/source_decomp_stage15c_metric_ablation/
+```
+
+Stage 1.5C reuses Stage 1.5A and Stage 1.5B raw measurements and separates three scalar views:
+
+```text
+raw_norm
+projected_artifact_norm = raw_norm * artifact_fraction
+clean_norm
+```
+
+Mean gap comparison:
+
+```text
+experiment_label          metric                   real_domain_gap  subject_specific_gap
+stage15a_class            raw_norm                        0.039491             -0.033744
+stage15a_class            projected_artifact_norm          0.037432             -0.032819
+stage15a_class            clean_norm                      0.013899             -0.008663
+stage15b_prompt_matched   raw_norm                        0.021300                   n/a
+stage15b_prompt_matched   projected_artifact_norm          0.019200                   n/a
+stage15b_prompt_matched   clean_norm                      0.012955                   n/a
+```
+
+Interpretation: prompt matching cuts the raw real-domain gap by about 46.1% and the artifact-aligned gap by about 48.7%, but it cuts the clean gap by only about 6.8%. This means prompt mismatch mostly affects the artifact/projection direction. After projection cleaning, the remaining ordinary-real gap is still present, and DreamBooth references remain below ordinary real controls in Stage 1.5A. The current scalar residual family therefore behaves like a generic real-image/projection-domain measurement, not a reliable personalization-specific off-priorness measurement.
+
+Decision: do not start Stage 2 personalization fine-tuning from this metric. The next work should either redesign the evidence around trajectory-level or vector-structured behavior, add stronger VAE/projection calibration, or pivot the paper story toward real-image-to-diffusion-prior target alignment.
+
+## Stage 1.5D Fine-Grained Result
+
+The fine-grained diagnosis is recorded under:
+
+```text
+experiments/off_prior_measurement_v0/source_decomp_stage15d_fine_grained/
+```
+
+Stage 1.5D checks whether the weak average scalar result hides a DreamBooth-specific signal in timestep or frequency axes.
+
+Clean-norm by timestep remains weak:
+
+```text
+timestep  positive DreamBooth classes  mean subject-specific gap
+50        1 / 4                        -0.015660
+200       0 / 4                        -0.013493
+500       0 / 4                        -0.010486
+800       0 / 4                        -0.002869
+999       1 / 4                        -0.000809
+```
+
+Frequency decomposition finds the only positive mean signal in low frequency:
+
+```text
+frequency band  positive cells  total cells  mean subject-specific gap
+high            0               20           -0.002032
+low             12              20            0.001171
+mid             5               20           -0.001377
+```
+
+The strongest low-frequency positives are mostly class-concentrated in `vase`, so they are not enough to revive the original average-gap story. The most useful clue is late low frequency:
+
+```text
+timestep  band  positive DreamBooth classes  mean subject-specific gap
+800       low   4 / 4                        0.000453
+999       low   3 / 4                        0.000087
+```
+
+Decision: no Stage 2 training from this metric. The next metric redesign should focus on low-frequency, late-timestep, vector-structured behavior rather than average scalar norms.
 
 ## Revised Hypothesis
 

@@ -1,0 +1,13 @@
+experiment_label,metric_name,class_name,conditioning_key,base_generated_control,ordinary_real_control,dreambooth_reference,natural_hard_reference,real_domain_gap,subject_specific_gap,natural_hard_gap
+stage15b_prompt_matched,raw_norm,backpack,prompt_matched,0.3394843597672302,0.3562450250696349,,,0.01676066530240472,,
+stage15b_prompt_matched,raw_norm,cat,prompt_matched,0.31214027800534655,0.3275944443599527,,,0.01545416635460617,,
+stage15b_prompt_matched,raw_norm,dog,prompt_matched,0.3225908634986589,0.36346297327861643,,,0.04087210977995753,,
+stage15b_prompt_matched,raw_norm,vase,prompt_matched,0.3446054258011029,0.35671749621567833,,,0.012112070414575404,,
+stage15b_prompt_matched,projected_artifact_norm,backpack,prompt_matched,0.334274164466599,0.34832649051708003,,,0.014052326050481012,,
+stage15b_prompt_matched,projected_artifact_norm,cat,prompt_matched,0.30582003219092385,0.31983413981768044,,,0.014014107626756589,,
+stage15b_prompt_matched,projected_artifact_norm,dog,prompt_matched,0.31715228740656587,0.3563360068148598,,,0.039183719408293904,,
+stage15b_prompt_matched,projected_artifact_norm,vase,prompt_matched,0.33971593078518547,0.3492663731219631,,,0.009550442336777654,,
+stage15b_prompt_matched,clean_norm,backpack,prompt_matched,0.05788421988370761,0.0737396652237279,,,0.015855445340020285,,
+stage15b_prompt_matched,clean_norm,cat,prompt_matched,0.06156035309251783,0.07017489706119288,,,0.008614543968675052,,
+stage15b_prompt_matched,clean_norm,dog,prompt_matched,0.058137780483215495,0.07093424758548758,,,0.012796467102272086,,
+stage15b_prompt_matched,clean_norm,vase,prompt_matched,0.05720453267218015,0.0717588491674225,,,0.014554316495242359,,

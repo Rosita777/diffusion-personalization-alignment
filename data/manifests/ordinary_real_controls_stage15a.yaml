@@ -1,0 +1,129 @@
+ordinary_real_controls:
+  - class_name: dog
+    image_id: dog_clean_object_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/dog/dog_clean_object_00.jpg
+    reference_regime: ordinary_clean_object
+    hardness_axis: clean_object
+    conditioning_prompt: a photo of a dog
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000029393; license id 4; ordinary dog standing outdoors; raw image cached locally and not committed"
+  - class_name: dog
+    image_id: dog_matched_closeup_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/dog/dog_matched_closeup_00.jpg
+    reference_regime: ordinary_matched_closeup
+    hardness_axis: matched_closeup
+    conditioning_prompt: a photo of a dog
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000205834; license id 3; close-up dog near bowl; raw image cached locally and not committed"
+  - class_name: dog
+    image_id: dog_cluttered_scene_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/dog/dog_cluttered_scene_00.jpg
+    reference_regime: ordinary_cluttered_scene
+    hardness_axis: cluttered_scene
+    conditioning_prompt: a photo of a dog
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000446522; license id 4; dog in indoor cluttered scene; raw image cached locally and not committed"
+  - class_name: dog
+    image_id: dog_background_heavy_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/dog/dog_background_heavy_00.jpg
+    reference_regime: ordinary_background_heavy
+    hardness_axis: background_heavy
+    conditioning_prompt: a photo of a dog
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000520301; license id 3; dog in car-window scene; raw image cached locally and not committed"
+  - class_name: cat
+    image_id: cat_matched_closeup_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/cat/cat_matched_closeup_00.jpg
+    reference_regime: ordinary_matched_closeup
+    hardness_axis: matched_closeup
+    conditioning_prompt: a photo of a cat
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000291490; license id 1; close-up cat on bed; raw image cached locally and not committed"
+  - class_name: cat
+    image_id: cat_clean_object_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/cat/cat_clean_object_00.jpg
+    reference_regime: ordinary_clean_object
+    hardness_axis: clean_object
+    conditioning_prompt: a photo of a cat
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000181859; license id 4; cat in bathroom sink; raw image cached locally and not committed"
+  - class_name: cat
+    image_id: cat_cluttered_scene_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/cat/cat_cluttered_scene_00.jpg
+    reference_regime: ordinary_cluttered_scene
+    hardness_axis: cluttered_scene
+    conditioning_prompt: a photo of a cat
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000403817; license id 3; cat beside laptop; raw image cached locally and not committed"
+  - class_name: cat
+    image_id: cat_background_heavy_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/cat/cat_background_heavy_00.jpg
+    reference_regime: ordinary_background_heavy
+    hardness_axis: background_heavy
+    conditioning_prompt: a photo of a cat
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000269314; license id 4; cat in tree with strong background; raw image cached locally and not committed"
+  - class_name: backpack
+    image_id: backpack_matched_context_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/backpack/backpack_matched_context_00.jpg
+    reference_regime: ordinary_matched_context
+    hardness_axis: matched_context
+    conditioning_prompt: a photo of a backpack
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000545594; license id 1; person wearing backpack; raw image cached locally and not committed"
+  - class_name: backpack
+    image_id: backpack_clean_object_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/backpack/backpack_clean_object_00.jpg
+    reference_regime: ordinary_clean_object
+    hardness_axis: clean_object
+    conditioning_prompt: a photo of a backpack
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000370478; license id 1; backpack and luggage in bedroom; raw image cached locally and not committed"
+  - class_name: backpack
+    image_id: backpack_cluttered_scene_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/backpack/backpack_cluttered_scene_00.jpg
+    reference_regime: ordinary_cluttered_scene
+    hardness_axis: cluttered_scene
+    conditioning_prompt: a photo of a backpack
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000351810; license id 1; pile of bags and luggage; raw image cached locally and not committed"
+  - class_name: backpack
+    image_id: backpack_background_heavy_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/backpack/backpack_background_heavy_00.jpg
+    reference_regime: ordinary_background_heavy
+    hardness_axis: background_heavy
+    conditioning_prompt: a photo of a backpack
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000472030; license id 3; small backpack in forest scene; raw image cached locally and not committed"
+  - class_name: vase
+    image_id: vase_clean_object_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/vase/vase_clean_object_00.jpg
+    reference_regime: ordinary_clean_object
+    hardness_axis: clean_object
+    conditioning_prompt: a photo of a vase
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000168458; license id 3; glass vase with flowers on table; raw image cached locally and not committed"
+  - class_name: vase
+    image_id: vase_matched_window_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/vase/vase_matched_window_00.jpg
+    reference_regime: ordinary_matched_window
+    hardness_axis: matched_window
+    conditioning_prompt: a photo of a vase
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000512194; license id 2; flower vase near window; raw image cached locally and not committed"
+  - class_name: vase
+    image_id: vase_cluttered_scene_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/vase/vase_cluttered_scene_00.jpg
+    reference_regime: ordinary_cluttered_scene
+    hardness_axis: cluttered_scene
+    conditioning_prompt: a photo of a vase
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000213224; license id 4; multiple flower vases on table; raw image cached locally and not committed"
+  - class_name: vase
+    image_id: vase_background_heavy_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/stage15a/vase/vase_background_heavy_00.jpg
+    reference_regime: ordinary_background_heavy
+    hardness_axis: background_heavy
+    conditioning_prompt: a photo of a vase
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000370042; license id 3; many vases outdoors; raw image cached locally and not committed"

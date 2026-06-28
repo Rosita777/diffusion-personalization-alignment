@@ -1,0 +1,21 @@
+ordinary_real_controls:
+  - class_name: dog
+    image_id: dog_real_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/coco2017/dog/dog_real_00.jpg
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000029393; license id 4; URL http://images.cocodataset.org/val2017/000000029393.jpg; selected because the dog is clear in an ordinary real scene; raw image cached locally and not committed"
+  - class_name: cat
+    image_id: cat_real_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/coco2017/cat/cat_real_00.jpg
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000443303; license id 2; URL http://images.cocodataset.org/val2017/000000443303.jpg; selected because the cat is clear in an ordinary real scene; raw image cached locally and not committed"
+  - class_name: backpack
+    image_id: backpack_real_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/coco2017/backpack/backpack_real_00.jpg
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000370478; license id 1; URL http://images.cocodataset.org/val2017/000000370478.jpg; selected because the backpack is visible in an ordinary real scene; raw image cached locally and not committed"
+  - class_name: vase
+    image_id: vase_real_00
+    image_path: data/cache/off_prior_measurement_v0/ordinary_real_controls/coco2017/vase/vase_real_00.jpg
+    source_dataset: coco2017_val
+    source_license_note: "COCO 2017 val image 000000168458; license id 3; URL http://images.cocodataset.org/val2017/000000168458.jpg; selected because the vase is clear in an ordinary real scene; raw image cached locally and not committed"

@@ -1,0 +1,5 @@
+class_name,conditioning_key,base_generated_control,ordinary_real_control,dreambooth_reference,natural_hard_reference,real_domain_gap,subject_specific_gap,natural_hard_gap
+backpack,prompt_matched,0.05788421988370761,0.0737396652237279,,,0.015855445340020285,,
+cat,prompt_matched,0.06156035309251783,0.07017489706119288,,,0.008614543968675052,,
+dog,prompt_matched,0.058137780483215495,0.07093424758548758,,,0.012796467102272086,,
+vase,prompt_matched,0.05720453267218015,0.0717588491674225,,,0.014554316495242359,,

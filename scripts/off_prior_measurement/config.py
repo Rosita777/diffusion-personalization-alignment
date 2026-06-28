@@ -41,6 +41,9 @@ class ExperimentConfig:
     hard_reference_variants: list[str] | None = None
     hard_reference_limit_per_subject: int | None = None
     reference_images_per_subject: int | None = None
+    ordinary_real_manifest: Path | None = None
+    source_decomp_images_per_class: int | None = None
+    source_decomp_save_debug_tensors: bool = False
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
@@ -99,6 +102,8 @@ def load_config(path: str | Path) -> ExperimentConfig:
     )
     hard_reference_limit = raw.get("hard_reference_limit_per_subject")
     reference_image_limit = raw.get("reference_images_per_subject")
+    ordinary_real_manifest = raw.get("ordinary_real_manifest")
+    source_decomp_images_per_class = raw.get("source_decomp_images_per_class")
 
     return ExperimentConfig(
         experiment_name=str(raw["experiment_name"]),
@@ -125,4 +130,9 @@ def load_config(path: str | Path) -> ExperimentConfig:
         if hard_reference_limit is None
         else int(hard_reference_limit),
         reference_images_per_subject=None if reference_image_limit is None else int(reference_image_limit),
+        ordinary_real_manifest=None if ordinary_real_manifest is None else Path(ordinary_real_manifest),
+        source_decomp_images_per_class=None
+        if source_decomp_images_per_class is None
+        else int(source_decomp_images_per_class),
+        source_decomp_save_debug_tensors=bool(raw.get("source_decomp_save_debug_tensors", False)),
     )

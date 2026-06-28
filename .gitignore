@@ -23,6 +23,9 @@ experiments/**/debug_tensors/
 experiments/**/wandb/
 experiments/**/tensorboard/
 experiments/**/*.log
+experiments/stage2a_lf_late/eval_vase/
+experiments/stage2b_strong_alignment/
+experiments/**/training_summary.json
 experiments/**/measurements/raw_metrics_rank*.csv
 *.ckpt
 *.pt

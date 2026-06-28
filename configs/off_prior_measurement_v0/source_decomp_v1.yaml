@@ -1,0 +1,22 @@
+experiment_name: source_decomp_v1
+model_id: data/cache/modelscope/AI-ModelScope/stable-diffusion-v1-5
+prediction_type: epsilon
+device: cuda
+dtype: float16
+resolution: 512
+dataset_repo: google/dreambooth
+dataset_source: github_api
+subject_manifest: data/manifests/dreambooth_ladder_subjects.yaml
+ordinary_real_manifest: data/manifests/ordinary_real_controls_v1.yaml
+cache_dir: data/cache/off_prior_measurement_v0
+output_dir: experiments/off_prior_measurement_v0/source_decomp_v1
+debug_output_dir: outputs/off_prior_measurement_v0/source_decomp_v1
+timesteps: [50, 200, 500, 800, 999]
+noise_seeds: [0, 1, 2, 3, 4]
+conditionings: ["class", "class_context"]
+control_images_per_subject: 2
+batch_size: 1
+save_debug_tensors: false
+source_decomp_images_per_class: 2
+source_decomp_save_debug_tensors: false
+reference_images_per_subject: 1

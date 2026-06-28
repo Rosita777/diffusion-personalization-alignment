@@ -1,0 +1,7 @@
+experiment_label,metric_name,mean_real_domain_gap,mean_subject_specific_gap,mean_natural_hard_gap
+stage15a_class,clean_norm,0.013898992698680699,-0.008663494670364424,
+stage15a_class,projected_artifact_norm,0.03743180964551835,-0.032818826549676494,
+stage15a_class,raw_norm,0.039490851975231174,-0.03374396169521785,
+stage15b_prompt_matched,clean_norm,0.012955193226552374,,
+stage15b_prompt_matched,projected_artifact_norm,0.01920014885557725,,
+stage15b_prompt_matched,raw_norm,0.021299752962885925,,
