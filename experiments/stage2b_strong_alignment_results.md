@@ -91,6 +91,37 @@ Mean absolute pixel difference against the base run at matched seeds:
 
 This proxy is only for triage. It is not a paper metric. The class-prompt drift is slightly lower for `alpha100` and `midlate_alpha075`, but the gap is small.
 
+## Metric Audit
+
+On 2026-06-29, we added a lightweight metric audit over the existing Stage 2B images. It does not retrain models or generate new images. It reads each eval `manifest.json`, matches images by prompt metadata and seed, and writes:
+
+```text
+experiments/stage2b_metric_audit_summary.csv
+experiments/stage2b_metric_audit_per_image.csv
+```
+
+Summary:
+
+| run | kind | images | distance to base | distance to vanilla | diversity |
+| --- | --- | ---: | ---: | ---: | ---: |
+| vanilla | class | 4 | 29.156 | 0.000 | 66.501 |
+| vanilla | subject | 4 | 31.144 | 0.000 | 86.785 |
+| dadt_lf_late_alpha075 | class | 4 | 29.770 | 10.963 | 66.587 |
+| dadt_lf_late_alpha075 | subject | 4 | 31.613 | 14.376 | 84.648 |
+| dadt_lf_late_alpha100 | class | 4 | 28.647 | 9.705 | 65.151 |
+| dadt_lf_late_alpha100 | subject | 4 | 30.949 | 10.130 | 85.911 |
+| dadt_lf_midlate_alpha075 | class | 4 | 28.599 | 15.752 | 66.473 |
+| dadt_lf_midlate_alpha075 | subject | 4 | 30.384 | 17.584 | 83.575 |
+
+Interpretation:
+
+```text
+alpha100 and midlate_alpha075 are slightly closer to base on class prompts,
+but they are also slightly closer to base on subject prompts.
+```
+
+That means the audit does not show a clean win. It is consistent with the qualitative read: the stronger DADT variants may reduce some drift, but the effect is small and not clearly separated from simply weakening personalization.
+
 ## Qualitative Observation
 
 Base generates ordinary `vase` images with broad class behavior.

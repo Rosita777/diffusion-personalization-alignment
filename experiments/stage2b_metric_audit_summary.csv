@@ -1,0 +1,9 @@
+run,kind,num_images,mean_distance_to_base,mean_distance_to_vanilla,mean_pairwise_diversity
+dadt_lf_late_alpha075,class,4,29.770295,10.963453,66.587375
+dadt_lf_late_alpha075,subject,4,31.613015,14.375871,84.647934
+dadt_lf_late_alpha100,class,4,28.646721,9.704956,65.151351
+dadt_lf_late_alpha100,subject,4,30.948915,10.129779,85.911247
+dadt_lf_midlate_alpha075,class,4,28.598711,15.752037,66.473359
+dadt_lf_midlate_alpha075,subject,4,30.383877,17.584385,83.575268
+vanilla,class,4,29.156358,0.000000,66.500793
+vanilla,subject,4,31.143773,0.000000,86.785303
