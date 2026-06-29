@@ -9,7 +9,7 @@ import yaml
 from scripts.personalization_training.target_alignment import LFLateAlignmentConfig
 
 
-ALLOWED_CONDITIONS = {"vanilla", "dadt_lf_late"}
+ALLOWED_CONDITIONS = {"vanilla", "dadt_lf_late", "dadt_residual_gate"}
 
 
 @dataclass(frozen=True)
@@ -128,6 +128,8 @@ def _load_alignment(raw: dict[str, Any], source: Path) -> LFLateAlignmentConfig:
         late_timestep_threshold=int(alignment["late_timestep_threshold"]),
         low_radius=int(alignment["low_radius"]),
         mid_radius=int(alignment["mid_radius"]),
+        residual_gate_quantile=float(alignment.get("residual_gate_quantile", 0.75)),
+        residual_gate_keep=float(alignment.get("residual_gate_keep", 0.5)),
     )
 
 

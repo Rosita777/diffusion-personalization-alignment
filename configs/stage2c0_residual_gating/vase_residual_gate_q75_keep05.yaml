@@ -1,0 +1,38 @@
+model_id: data/cache/modelscope/AI-ModelScope/stable-diffusion-v1-5
+output_dir: experiments/stage2c0_residual_gating/vase
+resolution: 512
+
+subjects:
+  - subject_id: vase
+    class_name: vase
+    instance_prompt: a photo of sks vase
+    class_prompt: a photo of a vase
+    image_paths:
+      - data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/00.jpg
+      - data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/01.jpg
+      - data/cache/off_prior_measurement_v0/dreambooth_dataset/dataset/vase/02.jpg
+
+training:
+  condition: dadt_residual_gate
+  max_train_steps: 200
+  learning_rate: 0.0001
+  lora_rank: 4
+  seed: 0
+  train_batch_size: 1
+
+alignment:
+  alpha: 0.0
+  late_timestep_threshold: 800
+  low_radius: 2
+  mid_radius: 4
+  residual_gate_quantile: 0.75
+  residual_gate_keep: 0.5
+
+evaluation:
+  num_images_per_prompt: 2
+  prompts:
+    - a photo of sks vase on a wooden table
+    - a photo of sks vase in a room
+  class_prompts:
+    - a photo of a vase
+    - a vase on a wooden table

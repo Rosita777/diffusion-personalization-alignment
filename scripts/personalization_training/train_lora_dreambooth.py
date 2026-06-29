@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from scripts.personalization_training.config import ALLOWED_CONDITIONS, Stage2AConfig, load_training_config
-from scripts.personalization_training.target_alignment import apply_lf_late_alignment
+from scripts.personalization_training.target_alignment import apply_lf_late_alignment, apply_residual_magnitude_gate
 
 
 @dataclass(frozen=True)
@@ -128,6 +128,12 @@ def target_for_condition(
             reference_target=reference_target,
             base_prediction=base_prediction,
             timestep=timestep,
+            config=config.alignment,
+        )
+    if config.training.condition == "dadt_residual_gate":
+        return apply_residual_magnitude_gate(
+            reference_target=reference_target,
+            base_prediction=base_prediction,
             config=config.alignment,
         )
     raise ValueError(f"Unsupported training condition: {config.training.condition}")
@@ -312,7 +318,7 @@ def run_training(config: Stage2AConfig, run_name: str | None = None) -> None:
         raise RuntimeError("No trainable LoRA parameters were found on the UNet")
 
     base_unet = None
-    if config.training.condition == "dadt_lf_late":
+    if config.training.condition.startswith("dadt_"):
         base_unet = _load_base_unet(config, torch_dtype=torch_dtype, device=device)
 
     optimizer = torch.optim.AdamW(trainable_parameters, lr=config.training.learning_rate)
