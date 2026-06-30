@@ -26,6 +26,7 @@ experiments/**/*.log
 experiments/stage2a_lf_late/eval_vase/
 experiments/stage2b_strong_alignment/
 experiments/stage2c0_residual_gating/
+experiments/stage2c1_cfg_residual_gate/
 experiments/**/training_summary.json
 experiments/**/measurements/raw_metrics_rank*.csv
 *.ckpt

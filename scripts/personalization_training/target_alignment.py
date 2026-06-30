@@ -91,3 +91,33 @@ def apply_residual_magnitude_gate(
         torch.ones_like(magnitude),
     )
     return base_prediction + gate * residual
+
+
+def cfg_residual_cosine(residual: torch.Tensor, class_direction: torch.Tensor) -> torch.Tensor:
+    if residual.shape != class_direction.shape:
+        raise ValueError("residual and class_direction must have the same shape")
+
+    residual_float = residual.float()
+    direction_float = class_direction.float()
+    dot = (residual_float * direction_float).sum(dim=1, keepdim=True)
+    residual_norm = residual_float.square().sum(dim=1, keepdim=True).sqrt()
+    direction_norm = direction_float.square().sum(dim=1, keepdim=True).sqrt()
+    return (dot / (residual_norm * direction_norm + 1e-6)).clamp(min=-1.0, max=1.0)
+
+
+def apply_cfg_residual_gate(
+    reference_target: torch.Tensor,
+    class_prediction: torch.Tensor,
+    null_prediction: torch.Tensor,
+    config: LFLateAlignmentConfig,
+) -> torch.Tensor:
+    if reference_target.shape != class_prediction.shape or reference_target.shape != null_prediction.shape:
+        raise ValueError("reference_target, class_prediction, and null_prediction must have the same shape")
+    if config.alpha == 0.0:
+        return reference_target
+
+    residual = reference_target - class_prediction
+    class_direction = class_prediction - null_prediction
+    cosine = cfg_residual_cosine(residual, class_direction)
+    gate = 1.0 - config.alpha * torch.relu(cosine)
+    return class_prediction + gate.to(dtype=residual.dtype) * residual

@@ -4,6 +4,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
 import yaml
 
 from scripts.personalization_training.config import load_training_config
@@ -321,6 +322,38 @@ def test_target_for_condition_applies_alignment_only_for_dadt(tmp_path):
 
     assert torch.allclose(vanilla_target, ref)
     assert not torch.allclose(dadt_target, ref)
+
+
+def test_target_for_condition_applies_cfg_residual_gate(tmp_path):
+    import torch
+
+    config_path = _write_config(tmp_path)
+    config = config_with_condition(load_training_config(config_path), "dadt_cfg_residual_gate")
+    ref = torch.tensor([[[[10.0, -10.0]]]])
+    class_prediction = torch.zeros_like(ref)
+    null_prediction = torch.full_like(ref, -1.0)
+
+    target = target_for_condition(
+        ref,
+        class_prediction,
+        timestep=900,
+        config=config,
+        null_prediction=null_prediction,
+    )
+
+    assert torch.allclose(target, torch.tensor([[[[5.0, -10.0]]]]))
+
+
+def test_target_for_condition_requires_null_prediction_for_cfg_gate(tmp_path):
+    import torch
+
+    config_path = _write_config(tmp_path)
+    config = config_with_condition(load_training_config(config_path), "dadt_cfg_residual_gate")
+    ref = torch.randn(1, 2, 4, 4)
+    class_prediction = torch.randn(1, 2, 4, 4)
+
+    with pytest.raises(ValueError, match="null_prediction"):
+        target_for_condition(ref, class_prediction, timestep=900, config=config)
 
 
 def test_reference_image_dataset_returns_normalized_pixels_and_prompts(tmp_path):

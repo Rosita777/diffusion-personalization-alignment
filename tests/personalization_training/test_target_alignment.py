@@ -4,8 +4,10 @@ import torch
 from scripts.personalization_training.target_alignment import (
     LFLateAlignmentConfig,
     ResidualGateConfig,
+    apply_cfg_residual_gate,
     apply_lf_late_alignment,
     apply_residual_magnitude_gate,
+    cfg_residual_cosine,
 )
 
 
@@ -74,3 +76,44 @@ def test_residual_gate_rejects_invalid_values():
         ResidualGateConfig(residual_gate_quantile=1.5, residual_gate_keep=0.5)
     with pytest.raises(ValueError, match="residual_gate_keep"):
         ResidualGateConfig(residual_gate_quantile=0.75, residual_gate_keep=-0.1)
+
+
+def test_cfg_residual_gate_suppresses_class_aligned_residuals_only():
+    class_prediction = torch.zeros(1, 1, 1, 4)
+    null_prediction = torch.full_like(class_prediction, -1.0)
+    reference = torch.tensor([[[[10.0, -10.0, 0.0, 4.0]]]])
+    cfg = LFLateAlignmentConfig(alpha=0.5, late_timestep_threshold=800, low_radius=2, mid_radius=4)
+
+    aligned = apply_cfg_residual_gate(reference, class_prediction, null_prediction, cfg)
+
+    assert torch.allclose(aligned, torch.tensor([[[[5.0, -10.0, 0.0, 2.0]]]]))
+
+
+def test_cfg_residual_gate_alpha_zero_returns_reference_target():
+    reference = torch.randn(1, 2, 4, 4)
+    class_prediction = torch.randn(1, 2, 4, 4)
+    null_prediction = torch.randn(1, 2, 4, 4)
+    cfg = LFLateAlignmentConfig(alpha=0.0, late_timestep_threshold=800, low_radius=2, mid_radius=4)
+
+    aligned = apply_cfg_residual_gate(reference, class_prediction, null_prediction, cfg)
+
+    assert torch.allclose(aligned, reference)
+
+
+def test_cfg_residual_gate_rejects_mismatched_shapes():
+    reference = torch.randn(1, 2, 4, 4)
+    class_prediction = torch.randn(1, 2, 4, 4)
+    null_prediction = torch.randn(1, 2, 2, 2)
+    cfg = LFLateAlignmentConfig(alpha=0.5, late_timestep_threshold=800, low_radius=2, mid_radius=4)
+
+    with pytest.raises(ValueError, match="same shape"):
+        apply_cfg_residual_gate(reference, class_prediction, null_prediction, cfg)
+
+
+def test_cfg_residual_cosine_reports_per_location_alignment():
+    residual = torch.tensor([[[[1.0, -1.0]], [[0.0, 0.0]]]])
+    class_direction = torch.tensor([[[[1.0, 1.0]], [[0.0, 0.0]]]])
+
+    cosine = cfg_residual_cosine(residual, class_direction)
+
+    assert torch.allclose(cosine, torch.tensor([[[[1.0, -1.0]]]]), atol=1e-5)

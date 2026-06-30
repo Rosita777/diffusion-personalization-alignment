@@ -8,7 +8,11 @@ from pathlib import Path
 from typing import Any
 
 from scripts.personalization_training.config import ALLOWED_CONDITIONS, Stage2AConfig, load_training_config
-from scripts.personalization_training.target_alignment import apply_lf_late_alignment, apply_residual_magnitude_gate
+from scripts.personalization_training.target_alignment import (
+    apply_cfg_residual_gate,
+    apply_lf_late_alignment,
+    apply_residual_magnitude_gate,
+)
 
 
 @dataclass(frozen=True)
@@ -120,6 +124,7 @@ def target_for_condition(
     base_prediction: Any,
     timestep: int | Any,
     config: Stage2AConfig,
+    null_prediction: Any | None = None,
 ) -> Any:
     if config.training.condition == "vanilla":
         return reference_target
@@ -134,6 +139,15 @@ def target_for_condition(
         return apply_residual_magnitude_gate(
             reference_target=reference_target,
             base_prediction=base_prediction,
+            config=config.alignment,
+        )
+    if config.training.condition == "dadt_cfg_residual_gate":
+        if null_prediction is None:
+            raise ValueError("null_prediction is required for dadt_cfg_residual_gate")
+        return apply_cfg_residual_gate(
+            reference_target=reference_target,
+            class_prediction=base_prediction,
+            null_prediction=null_prediction,
             config=config.alignment,
         )
     raise ValueError(f"Unsupported training condition: {config.training.condition}")
@@ -353,14 +367,20 @@ def run_training(config: Stage2AConfig, run_name: str | None = None) -> None:
 
             if base_unet is None:
                 base_prediction = reference_target
+                null_prediction = None
             else:
                 class_embeds = _encode_prompts(text_encoder, tokenizer, batch["class_prompts"], device)
                 base_prediction = base_unet(noisy_latents, timesteps, encoder_hidden_states=class_embeds).sample
+                null_prediction = None
+                if config.training.condition == "dadt_cfg_residual_gate":
+                    null_embeds = _encode_prompts(text_encoder, tokenizer, [""] * latents.shape[0], device)
+                    null_prediction = base_unet(noisy_latents, timesteps, encoder_hidden_states=null_embeds).sample
             target = target_for_condition(
                 reference_target=reference_target.float(),
                 base_prediction=base_prediction.float(),
                 timestep=timesteps,
                 config=config,
+                null_prediction=null_prediction.float() if null_prediction is not None else None,
             ).to(dtype=torch_dtype)
 
         model_prediction = unet(noisy_latents, timesteps, encoder_hidden_states=prompt_embeds).sample

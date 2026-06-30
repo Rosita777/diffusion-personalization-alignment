@@ -9,7 +9,7 @@ import yaml
 from scripts.personalization_training.target_alignment import LFLateAlignmentConfig
 
 
-ALLOWED_CONDITIONS = {"vanilla", "dadt_lf_late", "dadt_residual_gate"}
+ALLOWED_CONDITIONS = {"vanilla", "dadt_lf_late", "dadt_residual_gate", "dadt_cfg_residual_gate"}
 
 
 @dataclass(frozen=True)

@@ -93,3 +93,18 @@ def test_load_training_config_reads_residual_gate_config(tmp_path):
     assert config.training.condition == "dadt_residual_gate"
     assert config.alignment.residual_gate_quantile == 0.9
     assert config.alignment.residual_gate_keep == 0.5
+
+
+def test_load_training_config_reads_cfg_residual_gate_config(tmp_path):
+    image = tmp_path / "ref.png"
+    image.write_bytes(b"fake")
+    path = tmp_path / "config.yaml"
+    raw = _base_config(tmp_path, image)
+    raw["training"]["condition"] = "dadt_cfg_residual_gate"
+    raw["alignment"]["alpha"] = 0.5
+    path.write_text(yaml.safe_dump(raw), encoding="utf-8")
+
+    config = load_training_config(path)
+
+    assert config.training.condition == "dadt_cfg_residual_gate"
+    assert config.alignment.alpha == 0.5
