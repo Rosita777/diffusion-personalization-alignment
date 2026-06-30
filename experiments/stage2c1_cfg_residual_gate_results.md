@@ -2,7 +2,7 @@
 
 Date: 2026-06-30
 
-Status: completed triage run on `vase`.
+Status: completed triage run and alpha sweep on `vase`.
 
 ## Question
 
@@ -25,7 +25,7 @@ gate = 1 - alpha * relu(cosine_channel(r, d_class))
 v_target = v_class + gate * r
 ```
 
-Config:
+Initial config:
 
 ```text
 configs/stage2c1_cfg_residual_gate/vase_cfg_gate_alpha05.yaml
@@ -34,6 +34,15 @@ subject: vase
 max_train_steps: 200
 LoRA rank: 4
 base model: SD 1.5
+```
+
+Sweep configs:
+
+```text
+configs/stage2c1_cfg_residual_gate/vase_cfg_gate_alpha025.yaml
+configs/stage2c1_cfg_residual_gate/vase_cfg_gate_alpha05.yaml
+configs/stage2c1_cfg_residual_gate/vase_cfg_gate_alpha075.yaml
+configs/stage2c1_cfg_residual_gate/vase_cfg_gate_alpha100.yaml
 ```
 
 ## Diagnostic
@@ -58,7 +67,7 @@ Interpretation: the cosine signal is not degenerate. Roughly half the residual m
 
 ## Training
 
-Training summary:
+Initial training summary:
 
 ```text
 experiments/stage2c1_cfg_residual_gate/vase/cfg_gate_alpha05/vase/training_summary.json
@@ -73,12 +82,22 @@ Key values:
 | loss_mean | 0.07452 |
 | max_train_steps | 200 |
 
+Alpha sweep training summaries:
+
+| run | loss_first | loss_last | loss_mean |
+| --- | ---: | ---: | ---: |
+| cfg_gate_alpha025 | 0.00935 | 0.00700 | 0.08245 |
+| cfg_gate_alpha05 | 0.00835 | 0.00629 | 0.07452 |
+| cfg_gate_alpha075 | 0.00755 | 0.00578 | 0.06814 |
+| cfg_gate_alpha100 | 0.00696 | 0.00541 | 0.06334 |
+
 ## Metric Audit
 
 Summary CSV:
 
 ```text
 experiments/stage2c1_cfg_residual_gate_metric_audit_summary.csv
+experiments/stage2c1_cfg_residual_gate_alpha_sweep_summary.csv
 ```
 
 The lower `class` distance-to-base is better for anti-forgetting. For `subject`, higher distance-to-base than Stage 2C-0 is useful here because Stage 2C-0 over-preserved the base model and weakened subject learning.
@@ -91,25 +110,37 @@ The lower `class` distance-to-base is better for anti-forgetting. For `subject`,
 | residual_gate_q75_keep05 | subject | 20.586 |
 | residual_gate_q90_keep05 | class | 24.068 |
 | residual_gate_q90_keep05 | subject | 22.528 |
+| cfg_gate_alpha025 | class | 28.378 |
+| cfg_gate_alpha025 | subject | 30.666 |
 | cfg_gate_alpha05 | class | 26.386 |
 | cfg_gate_alpha05 | subject | 31.776 |
+| cfg_gate_alpha075 | class | 22.674 |
+| cfg_gate_alpha075 | subject | 32.371 |
+| cfg_gate_alpha100 | class | 27.978 |
+| cfg_gate_alpha100 | subject | 32.511 |
 
 ## Visual Read
 
 Generated grid:
 
 ```text
+experiments/stage2c1_cfg_residual_gate/vase/eval/cfg_gate_alpha025/grid.png
 experiments/stage2c1_cfg_residual_gate/vase/eval/cfg_gate_alpha05/grid.png
+experiments/stage2c1_cfg_residual_gate/vase/eval/cfg_gate_alpha075/grid.png
+experiments/stage2c1_cfg_residual_gate/vase/eval/cfg_gate_alpha100/grid.png
 ```
 
 The CFG gate result keeps subject-prompt images closer to vanilla subject strength than the q75/q90 residual magnitude gates. It still reduces class-prompt drift compared with vanilla, although less aggressively than q75/q90.
+
+The sweep is not monotonic. `alpha=0.25` is too conservative and leaves class drift close to vanilla. `alpha=0.75` gives the strongest class-drift reduction among CFG gate runs while keeping subject distance high, but one subject image becomes noticeably softer/watercolor-like. `alpha=1.0` does not improve class preservation further and appears less stable. This suggests that the gate is useful, but over-suppression can distort the denoising path rather than simply preserve the base prior.
 
 ## Takeaway
 
 Stage 2C-1 is more promising than Stage 2C-0 as a method prototype:
 
-1. It reduces class drift versus vanilla: `29.156 -> 26.386`.
+1. It reduces class drift versus vanilla: best sweep point `29.156 -> 22.674`.
 2. It avoids the main Stage 2C-0 failure, where subject learning collapsed toward the base model: q75/q90 subject distance `20.586/22.528`, CFG gate `31.776`.
 3. It supports the paper story better than pure magnitude gating because the gate uses a base-model semantic direction, not just residual size.
+4. Current best triage point is `alpha=0.75` for class preservation, while `alpha=0.5` remains the safer visual-quality point.
 
-This is not yet a final result. The next useful checks are an `alpha` sweep, another subject class, and a stronger subject-fidelity metric such as DINO or CLIP image similarity to reference images.
+This is not yet a final result. The next useful checks are another subject class, a finer `alpha` sweep around `0.5-0.75`, and a stronger subject-fidelity metric such as DINO or CLIP image similarity to reference images.
