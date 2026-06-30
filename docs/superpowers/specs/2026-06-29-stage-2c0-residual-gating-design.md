@@ -2,7 +2,7 @@
 
 Date: 2026-06-29
 
-Status: approved for immediate minimal implementation.
+Status: completed on the `vase` subject. This is a useful preservation signal, not a method win yet.
 
 ## Purpose
 
@@ -52,3 +52,42 @@ Do not add CLIP/DINO in this pass.
 Do not add masks or segmentation.
 
 Do not expand beyond `vase` until dry-run and tests pass.
+
+## 2026-06-29 Result
+
+Both initial configs trained and evaluated successfully:
+
+```text
+residual_gate_q75_keep05
+residual_gate_q90_keep05
+```
+
+GPU runtime note: the Codex shell can report zero CUDA devices when no GPU id is explicitly selected. Launch training and evaluation with `CUDA_VISIBLE_DEVICES=<gpu_id>`; with an explicit id, PyTorch sees the H800 GPUs correctly.
+
+Metric summary against the Stage 2B base and vanilla eval grids:
+
+| run | kind | distance to base | distance to vanilla | diversity |
+| --- | --- | ---: | ---: | ---: |
+| vanilla | class | 29.156 | 0.000 | 66.501 |
+| vanilla | subject | 31.144 | 0.000 | 86.785 |
+| residual_gate_q75_keep05 | class | 21.649 | 22.366 | 59.636 |
+| residual_gate_q75_keep05 | subject | 20.586 | 23.435 | 84.428 |
+| residual_gate_q90_keep05 | class | 24.068 | 19.940 | 63.844 |
+| residual_gate_q90_keep05 | subject | 22.528 | 20.809 | 84.744 |
+
+Interpretation:
+
+```text
+Residual gating clearly moves generated images closer to the base model than vanilla,
+especially q75. However, it also moves subject prompts closer to base, so the current
+gate is probably too conservative rather than a clean subject/prior tradeoff.
+```
+
+Next method implication:
+
+```text
+Keep residual gating as evidence that target-level control is effective, but redesign
+the gate to protect subject-bearing residuals. The next version should avoid suppressing
+all large residuals uniformly; likely options are subject/background-aware gating,
+timestep-conditioned gating, or a gate based on prompt-paired residual agreement.
+```
