@@ -1,0 +1,7 @@
+run,kind,num_images,mean_distance_to_base,mean_distance_to_vanilla,mean_pairwise_diversity
+cfg_gate_alpha05,class,4,46.257431,35.877698,79.051336
+cfg_gate_alpha05,subject,4,44.068745,31.618623,82.222299
+cfg_gate_alpha065,class,4,45.259615,40.972879,77.724404
+cfg_gate_alpha065,subject,4,43.495474,34.801141,82.744419
+vanilla,class,4,51.206073,0.000000,77.795316
+vanilla,subject,4,43.763714,0.000000,85.994721

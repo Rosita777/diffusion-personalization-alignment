@@ -2,7 +2,7 @@
 
 Date: 2026-06-30
 
-Status: completed triage run and alpha sweep on `vase`.
+Status: completed triage run and alpha sweep on `vase`; completed second-subject check on `backpack`.
 
 ## Question
 
@@ -46,6 +46,9 @@ configs/stage2c1_cfg_residual_gate/vase_cfg_gate_alpha065.yaml
 configs/stage2c1_cfg_residual_gate/vase_cfg_gate_alpha070.yaml
 configs/stage2c1_cfg_residual_gate/vase_cfg_gate_alpha075.yaml
 configs/stage2c1_cfg_residual_gate/vase_cfg_gate_alpha100.yaml
+configs/stage2c1_cfg_residual_gate/backpack_vanilla.yaml
+configs/stage2c1_cfg_residual_gate/backpack_cfg_gate_alpha05.yaml
+configs/stage2c1_cfg_residual_gate/backpack_cfg_gate_alpha065.yaml
 ```
 
 ## Diagnostic
@@ -97,6 +100,14 @@ Alpha sweep training summaries:
 | cfg_gate_alpha075 | 0.00755 | 0.00578 | 0.06814 |
 | cfg_gate_alpha100 | 0.00696 | 0.00541 | 0.06334 |
 
+Backpack training summaries:
+
+| run | condition | loss_first | loss_last | loss_mean |
+| --- | --- | ---: | ---: | ---: |
+| vanilla | vanilla | 0.03601 | 0.02623 | 0.11996 |
+| cfg_gate_alpha05 | dadt_cfg_residual_gate | 0.02821 | 0.02187 | 0.09647 |
+| cfg_gate_alpha065 | dadt_cfg_residual_gate | 0.02646 | 0.02089 | 0.09109 |
+
 ## Metric Audit
 
 Summary CSV:
@@ -105,6 +116,7 @@ Summary CSV:
 experiments/stage2c1_cfg_residual_gate_metric_audit_summary.csv
 experiments/stage2c1_cfg_residual_gate_alpha_sweep_summary.csv
 experiments/stage2c1_cfg_residual_gate_alpha_fine_sweep_summary.csv
+experiments/stage2c1_cfg_residual_gate_backpack_summary.csv
 ```
 
 The lower `class` distance-to-base is better for anti-forgetting. For `subject`, higher distance-to-base than Stage 2C-0 is useful here because Stage 2C-0 over-preserved the base model and weakened subject learning.
@@ -132,6 +144,17 @@ The lower `class` distance-to-base is better for anti-forgetting. For `subject`,
 | cfg_gate_alpha100 | class | 27.978 |
 | cfg_gate_alpha100 | subject | 32.511 |
 
+Backpack second-subject check:
+
+| run | kind | mean distance to base |
+| --- | --- | ---: |
+| vanilla | class | 51.206 |
+| vanilla | subject | 43.764 |
+| cfg_gate_alpha05 | class | 46.257 |
+| cfg_gate_alpha05 | subject | 44.069 |
+| cfg_gate_alpha065 | class | 45.260 |
+| cfg_gate_alpha065 | subject | 43.495 |
+
 ## Visual Read
 
 Generated grid:
@@ -144,6 +167,10 @@ experiments/stage2c1_cfg_residual_gate/vase/eval/cfg_gate_alpha065/grid.png
 experiments/stage2c1_cfg_residual_gate/vase/eval/cfg_gate_alpha070/grid.png
 experiments/stage2c1_cfg_residual_gate/vase/eval/cfg_gate_alpha075/grid.png
 experiments/stage2c1_cfg_residual_gate/vase/eval/cfg_gate_alpha100/grid.png
+experiments/stage2c1_cfg_residual_gate/backpack/eval/base/grid.png
+experiments/stage2c1_cfg_residual_gate/backpack/eval/vanilla/grid.png
+experiments/stage2c1_cfg_residual_gate/backpack/eval/cfg_gate_alpha05/grid.png
+experiments/stage2c1_cfg_residual_gate/backpack/eval/cfg_gate_alpha065/grid.png
 ```
 
 The CFG gate result keeps subject-prompt images closer to vanilla subject strength than the q75/q90 residual magnitude gates. It still reduces class-prompt drift compared with vanilla, although less aggressively than q75/q90.
@@ -151,6 +178,8 @@ The CFG gate result keeps subject-prompt images closer to vanilla subject streng
 The sweep is not monotonic. `alpha=0.25` is too conservative and leaves class drift close to vanilla. `alpha=0.75` gives the strongest class-drift reduction among CFG gate runs while keeping subject distance high, but one subject image becomes noticeably softer/watercolor-like. `alpha=1.0` does not improve class preservation further and appears less stable. This suggests that the gate is useful, but over-suppression can distort the denoising path rather than simply preserve the base prior.
 
 Fine sweep around `0.5-0.75` found a sharper tradeoff. `alpha=0.60` and `alpha=0.65` produce the lowest class distance to base so far (`19.352` and `17.756`), while subject distance remains around vanilla. However, both settings show a soft/watercolor failure on the first subject prompt. `alpha=0.70` visually recovers some sharpness but loses much of the class-preservation gain. Because the eval set has only 4 class and 4 subject images, this non-monotonicity should be treated as a strong triage signal, not a final tuning conclusion.
+
+Backpack gives a weaker but consistent generalization signal. CFG gate reduces class distance to base from `51.206` to `46.257/45.260`, while subject distance stays close to vanilla (`43.764` versus `44.069/43.495`). Visually, vanilla transfers a strong dark/patch-heavy backpack style into class prompts. CFG gate softens that transfer without removing backpack identity from subject prompts. Unlike vase, `alpha=0.65` did not show an obvious watercolor failure on this small backpack grid.
 
 ## Takeaway
 
@@ -160,5 +189,6 @@ Stage 2C-1 is more promising than Stage 2C-0 as a method prototype:
 2. It avoids the main Stage 2C-0 failure, where subject learning collapsed toward the base model: q75/q90 subject distance `20.586/22.528`, CFG gate `31.776`.
 3. It supports the paper story better than pure magnitude gating because the gate uses a base-model semantic direction, not just residual size.
 4. Current best metric point is `alpha=0.65`; current safer visual-quality point is still `alpha=0.5`, with `alpha=0.70` as a middle candidate.
+5. Backpack supports the same direction: class drift decreases while subject strength is not obviously sacrificed.
 
-This is not yet a final result. The next useful checks are another subject class, a larger prompt/seed eval set, and a stronger subject-fidelity metric such as DINO or CLIP image similarity to reference images.
+This is not yet a final result. The next useful checks are a larger prompt/seed eval set, at least one animal subject, and a stronger subject-fidelity metric such as DINO or CLIP image similarity to reference images.
